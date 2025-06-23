@@ -2,7 +2,7 @@
 function dbconnect()
 {
     static $connect = null;
-    $bdd_name = "immobilier";
+    $bdd_name = "employees";
     $mdp = "";
     $user = "root";
     $host = "localhost";
