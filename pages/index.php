@@ -36,6 +36,7 @@ $departements = getAllDepartement();
                             $idManagerEnCours = getManagerEnCours($departement["dept_no"])["emp_no"] ;
                             $managerEnCours = getEmployee($idManagerEnCours);
                         ?>
+                        <a href="department_info.php?id=<?= $departement["dept_no"] ?>">
                             <section class="card " style="width: 18rem;min-width: 18rem;">
                                 <img src="../assets/images/dep_placeholder.jpg" class="card-img-top img-fluid" style="height: 200px" alt="...">
                                 <section class="card-body">
@@ -52,6 +53,7 @@ $departements = getAllDepartement();
                                     </section>
                                 </section>
                             </section>
+                            </a>
                         <?php
                         }
                         ?>
