@@ -30,7 +30,17 @@
     }
 
     function getManagerEnCours($idDepartment){
-        
+        $sql= " select * from dept_manager  where dept_no = '%s' order by from_date desc limit 1";
+        $sql = sprintf($sql,$idDepartment);
+        $req= mysqli_query(dbconnect(),$sql);
+
+        while($man = mysqli_fetch_assoc($req))
+        {
+            $res=$man;
+        }
+
+        mysqli_free_result($req);
+        return $res;
     }
 
     function getDepartmentEmployee($idDepartment,$start,$nbr)
