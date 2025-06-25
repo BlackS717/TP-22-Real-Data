@@ -29,6 +29,10 @@
         return $res;
     }
 
+    function getManagerEnCours($idDepartment){
+        
+    }
+
     function getDepartmentEmployee($idDepartment,$start,$nbr)
     {
         $sql = "select employees.* from employees 
