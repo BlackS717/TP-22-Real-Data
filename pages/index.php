@@ -1,6 +1,6 @@
 <?php
 include("../inc/function.php");
-
+$departements = getAllDepartement();
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +11,7 @@ include("../inc/function.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil</title>
     <link href="../assets/scripts/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/scripts/css/style.css">
 </head>
 
 <body class="bg-light">
@@ -29,22 +30,28 @@ include("../inc/function.php");
         <section class="row">
             <section class="col-lg-12">
                 <section class="row mx-auto">
-
-                    <article class="col-lg-3 gap-1 mb-3">
-                        <section class="card" style="width: 18rem;">
-                            <img src="../assets/images/dep_placeholder.jpg" class="card-img-top img-fluid" style="height: 200px" alt="...">
-                            <section class="card-body">
-                                <section class="d-flex justify-content-between">
-                                    <span class="card-title fw-bold">title</span>
-                                    <span class="card-text d-flex align-items-center gap-2">
-                                        <img src="../assets/images/activity.svg" class="img-fluid" style="width: 20px" alt="">
-                                        <img src="../assets/images/share.svg" class="img-fluid" style="width: 20px" alt="">
-                                        <img src="../assets/images/bar-chart-fill.svg" alt="" class="img-fluid" style="width: 20px">
-                                    </span>
+                    <article class="col-lg-3 gap-1 mb-3 list-departements d-flex">
+                        <?php for ($i = 0; $i < count($departements); $i++) {
+                            $departement = $departements[$i];
+                        ?>
+                            <section class="card" style="width: 18rem;">
+                                <img src="../assets/images/dep_placeholder.jpg" class="card-img-top img-fluid" style="height: 200px" alt="...">
+                                <section class="card-body">
+                                    <section class="d-flex justify-content-between">
+                                        <span class="card-title fw-bold">title</span>
+                                        <span class="card-text d-flex align-items-center gap-2">
+                                            <img src="../assets/images/activity.svg" class="img-fluid" style="width: 20px" alt="">
+                                            <img src="../assets/images/share.svg" class="img-fluid" style="width: 20px" alt="">
+                                            <img src="../assets/images/bar-chart-fill.svg" alt="" class="img-fluid" style="width: 20px">
+                                        </span>
+                                    </section>
+                                    <a href="department.php?id=" class="btn btn-danger">Explore</a>
                                 </section>
-                                <a href="department.php?id=" class="btn btn-danger">Explore</a>
                             </section>
-                        </section>
+                        <?php
+                        }
+                        ?>
+
                     </article>
 
                 </section>

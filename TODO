@@ -15,4 +15,9 @@ Function:
     _ getManagerEnCours (ok)
     _ getDepartmentEmployee (ok)
 
+
+Task:
+    _ Show all departement (ok)
+    _ display cards flex (wip)
+
     
