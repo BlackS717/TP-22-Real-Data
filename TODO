@@ -1,17 +1,18 @@
 General layout:
     _ 3 row:
-        _header:
+        _ header:
 
-        _main:
+        _ main:
             _ 2 col:
                 _ info departement
                 _ info manager
-        _footer
+        _ footer
 
 
 Function:
-    _getAllDepartment
-    _getManagerEnCours
-    _getDepartmentEmployee
+    _ getAllDepartment
+    _ getAllManager
+    _ getManagerEnCours
+    _ getDepartmentEmployee
 
     
