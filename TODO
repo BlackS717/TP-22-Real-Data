@@ -9,4 +9,9 @@ General layout:
         _footer
 
 
+Function:
+    _getAllDepartment
+    _getManagerEnCours
+    _getDepartmentEmployee
+
     
