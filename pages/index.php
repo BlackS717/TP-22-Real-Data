@@ -32,7 +32,7 @@ include("../inc/function.php");
 
                     <article class="col-lg-3 gap-1 mb-3">
                         <section class="card" style="width: 18rem;">
-                            <img src="../assets/images/.jpg" class="card-img-top img-fluid" style="height: 200px" alt="...">
+                            <img src="../assets/images/dep_placeholder.jpg" class="card-img-top img-fluid" style="height: 200px" alt="...">
                             <section class="card-body">
                                 <section class="d-flex justify-content-between">
                                     <span class="card-title fw-bold">title</span>
@@ -46,7 +46,7 @@ include("../inc/function.php");
                             </section>
                         </section>
                     </article>
-                    
+
                 </section>
             </section>
         </section>
