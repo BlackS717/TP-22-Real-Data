@@ -1,0 +1,12 @@
+General layout:
+    _ 3 row:
+        _header:
+
+        _main:
+            _ 2 col:
+                _ info departement
+                _ info manager
+        _footer
+
+
+    
