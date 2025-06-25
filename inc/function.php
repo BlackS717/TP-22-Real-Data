@@ -8,7 +8,7 @@
         $res=array();
         while($dep=mysqli_fetch_assoc($req))
         {
-            $res=$dep;
+            $res[]=$dep;
         }
         mysqli_free_result($req);
         return $res;
@@ -16,7 +16,7 @@
 
     function getManagerEnCours($idDepartment)
     {
-        $sql= " select * from dept_manager  where dept_no = '%s' ";
+        $sql= " select * from dept_manager  where dept_no = '%s' order by from_date desc limit 1";
         $sql = sprintf($sql,$idDepartment);
         $req= mysqli_query(dbconnect(),$sql);
         $res= array();
