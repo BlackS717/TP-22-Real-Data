@@ -14,16 +14,17 @@
         return $res;
     }
 
-    function getManagerEnCours($idDepartment)
+    function getAllManagerEnCours($idDepartment)
     {
-        $sql= " select * from dept_manager  where dept_no = '%s' order by from_date desc limit 1";
+        $sql= " select * from dept_manager  where dept_no = '%s' ";
         $sql = sprintf($sql,$idDepartment);
         $req= mysqli_query(dbconnect(),$sql);
-        $res= array();
+
         while($man = mysqli_fetch_assoc($req))
         {
             $res=$man;
         }
+
         mysqli_free_result($req);
         return $res;
     }
@@ -38,7 +39,7 @@
         $res = array();
         while($emp = mysqli_fetch_assoc($req))
         {
-            $res = $emp;
+            $res[] = $emp;
         }
         return $res;
     }
