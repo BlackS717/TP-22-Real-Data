@@ -14,10 +14,13 @@ Function:
     _ getAllManager (ok)
     _ getManagerEnCours (ok)
     _ getDepartmentEmployee (ok)
+    _ getEmployee (ok)
 
 
 Task:
     _ Show all departement (ok)
-    _ display cards flex (wip)
+    _ display cards flex (ok)
+    _ show current manager (ok)
+    _ links to employee list (wip)
 
     

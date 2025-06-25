@@ -43,6 +43,23 @@
         return $res;
     }
 
+    function getEmployee($idEmployee)
+    {
+        $sql = "select * from employees where emp_no = '%s'";
+        $sql = sprintf($sql,$idEmployee);
+        $req = mysqli_query(dbconnect(),$sql);
+        $res = mysqli_fetch_assoc($req);
+        mysqli_free_result($req);
+        return $res;
+    }
+
+    function getName($employee)
+    {
+        return $employee["first_name"] . " " . $employee["last_name"];
+    }
+
+
+
     function getDepartmentEmployee($idDepartment,$start,$nbr)
     {
         $sql = "select employees.* from employees 
