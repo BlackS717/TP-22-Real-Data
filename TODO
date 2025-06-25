@@ -1,18 +1,18 @@
-General layout:
-    _ 3 row:
-        _ header:
+General layout: (ok)
+    _ 3 row: (ok)
+        _ header: (ok)
 
-        _ main:
-            _ 2 col:
-                _ info departement
-                _ info manager
-        _ footer
+        _ main: (ok)
+            _ 2 col: (ok)
+                _ info departement (ok)
+                _ info manager (ok)
+        _ footer (ok)
 
 
 Function:
-    _ getAllDepartment
-    _ getAllManager
-    _ getManagerEnCours
-    _ getDepartmentEmployee
+    _ getAllDepartment (ok)
+    _ getAllManager (ok)
+    _ getManagerEnCours (ok)
+    _ getDepartmentEmployee (ok)
 
     
