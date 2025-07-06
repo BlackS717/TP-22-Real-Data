@@ -28,7 +28,7 @@ $list_departements = getAllDepartement();
     <div class="container border">
       <h2 class="row">Recherche</h2>
 
-      <form action="../traitement/traitement_recherche.php" method="get" class="form-group row">
+      <form action="./resultat_recherche.php" method="POST" class="form-group row">
         <div class="col-md-6">
           <label class="form-label" for="nom">Nom :</label>
           <input class="form-control" type="text" id="nom" name="nom" placeholder="Nom" />

@@ -34,5 +34,7 @@ Task:
     _ show position history(ok)
     _ search form (ok)
     _ search result (wip)
+        - first 20 result(ok)
+        - next and previous button(wip)
 
     
