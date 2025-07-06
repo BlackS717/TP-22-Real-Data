@@ -57,7 +57,7 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
                     <article class="col gap-1 mb-3 list-employees d-inline-flex  justify-content-evenly align-items-center flex-wrap">
                         <?php for ($i = 0; $i < $nbrToShow; $i++) {
                         ?>
-                            <a href="historique_employee.php?employee=<?= $employees[$i]["emp_no"] ?>">
+                            <a href="fiche_employee.php?employee=<?= $employees[$i]["emp_no"] ?>">
 
                                 <?php
                                 $employee = $employees[$i];

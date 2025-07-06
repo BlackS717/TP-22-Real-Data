@@ -21,7 +21,7 @@ Function:
     _ getEmployeeSalaire (ok) // salary history
     _ getNombreEmployeDepartement (ok) // position history
     _ rechercheEmployee(ok)
-    _ getTotalMatchingValue(wip)
+    _ getTotalMatchingValue(ok)
 
 
 Task:
@@ -36,6 +36,9 @@ Task:
     _ search form (ok)
     _ search result (wip)
         - first 20 result(ok)
-        - next and previous button(wip)
+        - next and previous button(ok)
+    _ show nbr employee in index
+    _ show job stats
+    _ show longest job in historique_employee
 
     
