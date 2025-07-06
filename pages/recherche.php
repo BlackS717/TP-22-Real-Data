@@ -31,28 +31,28 @@ $list_departements = getAllDepartement();
       <form action="../traitement/traitement_recherche.php" method="get" class="form-group row">
         <div class="col-md-6">
           <label class="form-label" for="nom">Nom :</label>
-          <input required class="form-control" type="text" id="nom" name="nom" placeholder="Nom" />
+          <input class="form-control" type="text" id="nom" name="nom" placeholder="Nom" />
         </div>
 
         <hr class="d-sm-block d-md-none">
 
         <div class="col-md-6">
           <label class="form-label" for="Prenom">Prenom :</label>
-          <input required class="form-control" type="text" id="Prenom" name="prenom" placeholder="Prenom" />
+          <input class="form-control" type="text" id="Prenom" name="prenom" placeholder="Prenom" />
         </div>
 
         <hr>
 
         <div class="col-md-6">
           <label class="form-label" for="ageMin">Age min :</label>
-          <input required class="form-control" type="number" id="ageMin" name="ageMin" placeholder="Age minimum" />
+          <input class="form-control" type="number" id="ageMin" name="ageMin" placeholder="Age minimum" min="0" />
         </div>
 
         <hr class="d-sm-block d-md-none">
 
         <div class="col-md-6">
           <label class="form-label" for="ageMax">Age max :</label>
-          <input required class="form-control" type="number" id="ageMax" name="ageMax" placeholder="Age maximum" />
+          <input class="form-control" type="number" id="ageMax" name="ageMax" placeholder="Age maximum" min="0"/>
         </div>
 
         <hr>
@@ -60,18 +60,19 @@ $list_departements = getAllDepartement();
         <div class="col-md-12">
           <label class="form-label" for="departement">Departmement :</label>
           <select class="form-control" name="departement" id="departement">
+            <option value="-1">Tous les departements</option>
+
             <?php
             foreach ($list_departements as $departement) {
             ?>
-              <option value="<?= $departement['dept_name'] ?>"><?= $departement['dept_name'] ?></option>
+              <option value="<?= $departement['dept_no'] ?>"><?= $departement['dept_name'] ?></option>
             <?php
             }
             ?>
           </select>
         </div>
-        <!-- <div class="col-md-12"> -->
+
         <button type="submit" class="btn btn-primary">Rechercher</button>
-        <!-- </div> -->
 
       </form>
     </div>

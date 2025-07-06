@@ -20,7 +20,7 @@ Function:
     _ getAge (ok)
     _ getEmployeeSalaire (ok) // salary history
     _ getNombreEmployeDepartement (ok) // position history
-
+    _ rechercheEmployee(ok)
 
 
 Task:
@@ -32,6 +32,7 @@ Task:
     _ show per segment (ok)
     _ show salary history (ok)
     _ show position history(ok)
-    _ search form (wip)
+    _ search form (ok)
+    _ search result (wip)
 
     
