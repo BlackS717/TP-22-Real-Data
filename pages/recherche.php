@@ -1,3 +1,11 @@
+<?php
+require("../inc/function.php");
+$list_departements = getAllDepartement();
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,34 +13,74 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recherche</title>
+  <link href="../assets/scripts/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/scripts/css/style.css">
 </head>
 
 <body>
 
 
-  <h2>Recherche</h2>
-  <form action="../traitement/traitement_recherche.php" method="get">
-    <div class="form-group">
-      <label for="nom">Nom :</label>
-      <input type="text" id="nom" name="nom" placeholder="RAKOTO" />
-      <br><br>
-      <label for="Prenom">Prenom :</label>
-      <input type="text" id="Prenom" name="prenom" placeholder="Kevin" />
-      <br><br>
-      <label for="nom">Age min :</label>
-      <input type="number" id="ageMin" name="ageMin" placeholder="18" />
-      <br><br>
-      <label for="Prenom">Age max :</label>
-      <input type="number" id="ageMax" name="ageMax" placeholder="70" />
-      <br><br>
-      <label for="Prenom">Departmement :</label>
-      <input type="text" id="departement" name="departement" placeholder="Development" />
+  <header class="bg-white shadow-sm container">
+    <?php include("../inc/header.php"); ?>
+  </header>
 
+  <main>
+    <div class="container border">
+      <h2 class="row">Recherche</h2>
+
+      <form action="../traitement/traitement_recherche.php" method="get" class="form-group row">
+        <div class="col-md-6">
+          <label class="form-label" for="nom">Nom :</label>
+          <input required class="form-control" type="text" id="nom" name="nom" placeholder="Nom" />
+        </div>
+
+        <hr class="d-sm-block d-md-none">
+
+        <div class="col-md-6">
+          <label class="form-label" for="Prenom">Prenom :</label>
+          <input required class="form-control" type="text" id="Prenom" name="prenom" placeholder="Prenom" />
+        </div>
+
+        <hr>
+
+        <div class="col-md-6">
+          <label class="form-label" for="ageMin">Age min :</label>
+          <input required class="form-control" type="number" id="ageMin" name="ageMin" placeholder="Age minimum" />
+        </div>
+
+        <hr class="d-sm-block d-md-none">
+
+        <div class="col-md-6">
+          <label class="form-label" for="ageMax">Age max :</label>
+          <input required class="form-control" type="number" id="ageMax" name="ageMax" placeholder="Age maximum" />
+        </div>
+
+        <hr>
+
+        <div class="col-md-12">
+          <label class="form-label" for="departement">Departmement :</label>
+          <select class="form-control" name="departement" id="departement">
+            <?php
+            foreach ($list_departements as $departement) {
+            ?>
+              <option value="<?= $departement['dept_name'] ?>"><?= $departement['dept_name'] ?></option>
+            <?php
+            }
+            ?>
+          </select>
+        </div>
+        <!-- <div class="col-md-12"> -->
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+        <!-- </div> -->
+
+      </form>
     </div>
-    <br>
-    <button type="submit" class="btn-login">Se connecter</button>
-  </form>
 
+  </main>
+  <footer class="bg-white shadow-sm pt-2" id="footer">
+    <?php include("../inc/footer.php"); ?>
+  </footer>
+  <script src="../assets/scripts/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

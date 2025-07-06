@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-9 mx-auto">
         <div class="row d-flex justify-content-between p-2">
-            <div class="col-lg-4">
+            <div class="col-lg-4 d-none d-lg-block">
                 <p class="fw-bold figure-caption text-black">About</p>
                 <p class="figure-caption text-black">We are a solid company with millions of employees already working. Together, we build foundation which is aimed at changing the world for the better, every step on the way.</p>
                 <span class="fw-bold figure-caption text-black">Connect with us</span>

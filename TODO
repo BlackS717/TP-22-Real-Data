@@ -16,8 +16,11 @@ Function:
     _ getDepartmentEmployee (ok)
     _ getEmployee (ok)
     _ getDepartment (ok)
-    _getCountDepartmentEmployee (ok)
-    _getAge (ok)
+    _ getCountDepartmentEmployee (ok)
+    _ getAge (ok)
+    _ getEmployeeSalaire (ok) // salary history
+    _ getNombreEmployeDepartement (ok) // position history
+
 
 
 Task:
@@ -27,5 +30,8 @@ Task:
     _ links to employee list (ok)
     _ show all employee (ok)
     _ show per segment (ok)
+    _ show salary history (ok)
+    _ show position history(ok)
+    _ search form (wip)
 
     
