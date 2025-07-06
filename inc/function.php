@@ -109,3 +109,70 @@ function getDateDiff($date)
     return $data['diffYear'];
 }
 
+function getEmployeeSalaire($idEmployee)
+{
+    $sql = "select salary,from_date,to_date from salaries 
+            where emp_no = '%s' order by from_date desc";
+    $sql = sprintf($sql, $idEmployee);
+    $sql = mysqli_query(dbconnect(), $sql);
+    $req = array();
+    while ($emp = mysqli_fetch_assoc($sql)) {
+        $req[] = $emp;
+    }
+    mysqli_free_result($sql);
+    return $req;
+}
+
+function getEmployeeDepartment($idEmployee)
+{
+    $sql = "select from_date,to_date,title from titles 
+            where emp_no = '%s' order by from_date desc";
+    $sql = sprintf($sql, $idEmployee);
+    $sql = mysqli_query(dbconnect(), $sql);
+    $req = array();
+    while ($emp = mysqli_fetch_assoc($sql)) {
+        $req[] = $emp;
+    }
+    mysqli_free_result($sql);
+    return $req;
+}
+
+function getNombreSalaire($idEmployee)
+{
+    $sql = "select count(*) as nbr from salaries where emp_no='%s'";
+    $sql = sprintf($sql, $idEmployee);
+    $sql = mysqli_query(dbconnect(), $sql);
+    $req = mysqli_fetch_assoc($sql);
+    mysqli_free_result($sql);
+    return $req["nbr"];
+}
+
+function getNombreEmployeDepartement($idEmployee)
+{
+    $sql = "select count(*) as nbr from titles where emp_no='%s'";
+    $sql = sprintf($sql, $idEmployee);
+    $sql = mysqli_query(dbconnect(), $sql);
+    $req = mysqli_fetch_assoc($sql);
+    mysqli_free_result($sql);
+    return $req["nbr"];
+}
+
+function rechercheEmployee($nom,$prenom,$ageMin,$ageMax,$departement)
+{
+    $sql = "select employees.* from employees 
+            join departments where 1=1
+            and employees.first_name like %'%s'% 
+            and employees.last_name like %'%s'%
+            and TIMESTAMPDIFF(YEAR, employees.birth_date, NOW()) >= '%s'
+            and TIMESTAMPDIFF(YEAR, employees.birth_date, NOW()) <= '%s'
+            and departments.dept_name like %'%s'%";
+    $sql = sprintf($sql,$nom,$prenom,$ageMin,$ageMax,$departement);
+    $sql = mysqli_query(dbconnect(),$sql);
+    $res = array();
+    while ($val = mysqli_fetch_assoc($sql))
+    {
+        $res = $val;
+    }
+    mysqli_free_result($sql);
+    return $res;
+}

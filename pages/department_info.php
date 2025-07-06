@@ -45,6 +45,10 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
                 <section class="row mx-auto">
                     <article class="col gap-1 mb-3 list-employees d-inline-flex  justify-content-evenly align-items-center flex-wrap">
                         <?php for ($i = 0; $i < $nbrToShow; $i++) {
+                            ?>
+                            <a href="historique_employee.php?employee=<?= $employees[$i]["emp_no"]?>">
+                                
+                            <?php
                             $employee = $employees[$i];
                             $img = $employee["gender"] == "M" ? "../assets/images/m_placeholder.jpg" : "../assets/images/f_placeholder.jpg";
                             $name = getName($employee);
@@ -52,7 +56,7 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
                             $hireDate = $employee["hire_date"];
                         ?>
                             <section class="card " style="width: 18rem;min-width: 18rem;">
-                                <img src="<?= $img ?>" class="card-img-top img-fluid" style="height: 200px" alt="...">
+                                <img src="<?= $img ?>" class="card-img-top img-fluid" style="height: 310px" alt="...">
                                 <section class="card-body">
                                     <section class="d-flex flex-column justify-content-between">
                                         <span class="card-title fw-bold"><?= $name ?></span>
@@ -62,6 +66,7 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
                                     </section>
                                 </section>
                             </section>
+                            </a>
                         <?php
                         }
                         ?>

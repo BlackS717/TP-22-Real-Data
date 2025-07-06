@@ -7,10 +7,13 @@
         <section class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item ">
-                    <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Home</a>
+                    <a class="nav-link" href="../pages/index.php" aria-expanded="true">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-danger" href="#footer">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../pages/recherche.php">Recherche</a>
                 </li>
             </ul>
         </section>
