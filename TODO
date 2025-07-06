@@ -21,6 +21,7 @@ Function:
     _ getEmployeeSalaire (ok) // salary history
     _ getNombreEmployeDepartement (ok) // position history
     _ rechercheEmployee(ok)
+    _ getTotalMatchingValue(wip)
 
 
 Task:

@@ -1,12 +1,29 @@
 <?php
 require("../inc/function.php");
 
+$values = [];
+
+$nom = isset($_GET["nom"]) ? $_GET['nom'] : "";
+$values[] = "nom=" . $nom;
+
+$prenom = isset($_GET["prenom"]) ? $_GET['prenom'] : "";
+$values[] = "prenom=" . $prenom;
+
+$ageMin = isset($_GET["ageMin"]) ? $_GET['ageMin'] : "0";
+$values[] = "ageMin=" . $ageMin;
+
+$ageMax = isset($_GET["ageMax"]) ? $_GET['ageMax'] : "0";
+$values[] = "ageMax=" . $ageMax;
+
+$idDepartementR = isset($_GET["departement"]) ? $_GET['departement'] : "-1";
+$values[] = "departement=" . $idDepartementR;
+
 $start = isset($_GET["start"]) ? $_GET["start"] : 0;
 $nbrToShow = 20;
 
-$employees = rechercheEmployee($_POST["nom"],$_POST["prenom"],$_POST["ageMin"],$_POST["ageMax"],$_POST["departement"], $start, $nbrToShow);
+$employees = rechercheEmployee($nom, $prenom, $ageMin, $ageMax, $idDepartementR, $start, $nbrToShow);
 
-$nbrEmployees = count($employees);
+$nbrEmployees = getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $idDepartementR);
 
 $nbrEmployeesdivided = ceil($nbrEmployees / $nbrToShow);
 $next = $start + $nbrToShow;
@@ -14,12 +31,11 @@ if ($next > $nbrEmployees) {
     $next = 0;
 }
 $previous = $start - $nbrToShow;
-if ($previous < 0) {
-    $previous = 0;
-}
 
-$activePrevious = $previous == 0 ? "disabled" : "";
-$activeNext = $next == $nbrEmployees ? "disabled" : "";
+$activePrevious = $previous < 0 ? "disabled" : "";
+$activeNext = $next == 0 ? "disabled" : "";
+
+$valueToPass = implode("&&", $values);
 
 ?>
 
@@ -40,14 +56,24 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
     </header>
     <main class="container">
         <section class="row">
+            <h3><?= $nbrEmployees ?> resultat(s)</h3>
+        </section>
+        <section class="row">
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
+
                     <li class="page-item <?= $activePrevious ?>">
-                        <a class="page-link" href="department_info.php?start=<?= $previous ?>&&id=<?= $idDepartement ?>">Previous</a>
+                        <a class="page-link" href="resultat_recherche.php?start=<?= $previous ?>&&<?= $valueToPass ?>">Previous</a>
                     </li>
+
+                    <li class="page-item disabled">
+                        <a href="" class="page-link"><?= $start + 1 ?> - <?= $start + count($employees) ?></a>
+                    </li>
+
                     <li class="page-item <?= $activeNext ?>">
-                        <a class="page-link" href="department_info.php?start=<?= $next ?>&&id=<?= $idDepartement ?>">Next</a>
+                        <a class="page-link" href="resultat_recherche.php?start=<?= $next ?>&&<?= $valueToPass ?>">Next</a>
                     </li>
+
                 </ul>
             </nav>
         </section>
@@ -55,7 +81,7 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
             <section class="col-lg-12">
                 <section class="row mx-auto">
                     <article class="col gap-1 mb-3 list-employees d-inline-flex  justify-content-evenly align-items-center flex-wrap">
-                        <?php for ($i = 0; $i < $nbrToShow; $i++) {
+                        <?php for ($i = 0; $i < count($employees); $i++) {
                         ?>
                             <a href="historique_employee.php?employee=<?= $employees[$i]["emp_no"] ?>">
 
@@ -91,12 +117,19 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
 
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
+
                     <li class="page-item <?= $activePrevious ?>">
-                        <a class="page-link" href="department_info.php?start=<?= $previous ?>&&id=<?= $idDepartement ?>">Previous</a>
+                        <a class="page-link" href="resultat_recherche.php?start=<?= $previous ?>&&<?= $valueToPass ?>">Previous</a>
                     </li>
+
+                    <li class="page-item disabled">
+                        <a href="" class="page-link"><?= $start + 1 ?> - <?= $start + count($employees) ?></a>
+                    </li>
+
                     <li class="page-item <?= $activeNext ?>">
-                        <a class="page-link" href="department_info.php?start=<?= $next ?>&&id=<?= $idDepartement ?>">Next</a>
+                        <a class="page-link" href="resultat_recherche.php?start=<?= $next ?>&&<?= $valueToPass ?>">Next</a>
                     </li>
+
                 </ul>
             </nav>
         </section>
@@ -109,4 +142,3 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
 </body>
 
 </html>
-

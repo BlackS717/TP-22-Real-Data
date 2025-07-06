@@ -213,3 +213,55 @@ function rechercheEmployee($nom, $prenom, $ageMin, $ageMax, $departement, $offse
     mysqli_free_result($sql);
     return $res;
 }
+
+function getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $departement){
+    $sql = "SELECT COUNT(*) as total FROM employees ";
+
+    $age = " TIMESTAMPDIFF(YEAR, employees.birth_date, NOW()) ";
+
+    $conditions = [];
+
+    if ($departement != "-1") {
+        $sql .= " JOIN dept_emp ON dept_emp.emp_no = employees.emp_no ";
+
+        $condition = "dept_emp.dept_no = '%s'";
+        $conditions[] = sprintf($condition, $departement);
+    }
+
+    if (!empty($nom)) {
+        $formatted = "%".$nom."%";
+        $condition = " employees.last_name LIKE '%s' ";
+        $conditions[] = sprintf($condition, $formatted);
+    }
+
+    if (!empty($prenom)) {
+        $formatted = "%".$prenom."%";
+        $condition = " employees.first_name LIKE '%s' ";
+        $conditions[] = sprintf($condition, $formatted);
+    }
+
+    if (!empty($ageMin)) {
+        $condition = $age." >= '%s' ";
+        $conditions[] = sprintf($condition, $ageMin);
+    }
+
+    if (!empty($ageMax)) {
+        $condition = $age." <= '%s' ";
+        $conditions[] = sprintf($condition, $ageMax);
+    }
+
+    if(!empty($conditions)){
+        $sql .= " WHERE ";
+        $sql .= implode(" AND ", $conditions);
+    }
+
+    $result = mysqli_query(dbconnect(), $sql);
+
+    if (!$result) {
+        return 0;
+    }
+
+    $row = mysqli_fetch_assoc($result);
+    mysqli_free_result($result);
+    return $row['total'];
+}
