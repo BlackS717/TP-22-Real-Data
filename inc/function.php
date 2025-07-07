@@ -14,6 +14,12 @@ function request_to_array($request){
     return $result;
 }
 
+function fetch_result($request){
+    $result = mysqli_fetch_assoc($request);
+    mysqli_free_result($request);
+    return $result;
+}
+
 function getAllDepartement()
 {
     $sql = " SELECT * FROM departments ";
@@ -67,8 +73,15 @@ function countAllEmployee(){
 }
 
 function countAllFemaleEmployee(){
-    $sql = "SELECT * FROM employees WHERE gender = 'F'";
+    $sql = "SELECT COUNT(*) as nbr FROM employees WHERE gender = 'F'";
     $req = make_request($sql);
+    return fetch_result($req)['nbr'];
+}
+
+function countAllMaleEmployee(){
+    $sql = "SELECT COUNT(*) as nbr FROM employees WHERE gender = 'M'";
+    $req = make_request($sql);
+    return fetch_result($req)['nbr'];
 }
 
 function getName($employee)
