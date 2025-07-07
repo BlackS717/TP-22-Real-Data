@@ -285,9 +285,11 @@ function changeEmployeeDepartment($idEmployee,$idNewDep,$newDate)
     $ancienDep = getEmployeeDepartmentRecord($idEmployee)[0];
     $sql = "update dept_emp set to_date = '%s' where emp_no = '%s'";
     $sql = sprintf($sql,$idEmployee,$newDate);
+    make_request($sql);
 
     $sql1 = "insert into dept_emp values ('%s','%s','%s','9999-01-01')";
     $sql1 = sprintf($sql1,$idEmployee,$idNewDep,$newDate);
+    make_request($sql1);
 }
 
 function convertToPercentage($employeeCount){

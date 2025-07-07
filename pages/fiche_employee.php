@@ -51,6 +51,8 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
                                             <span class="card-title fw-bold"><?= $name ?></span>
                                             <hr>
                                             <span class="card-text d-flex align-items-center gap-2">Age: <?= $age ?></span>
+                                            <hr>
+                                            <a href="department_change.php?idEmployee= <?= $idEmployee?>">Changer de Department</a>
                                         </div>
                                     </div>
                                 </div>
