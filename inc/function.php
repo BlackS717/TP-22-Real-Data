@@ -5,16 +5,20 @@ function make_request($request){
     return mysqli_query(dbconnect(), $request);
 }
 
+function request_to_array($request){
+    $result = array();
+    while($r = mysqli_fetch_assoc($request)){
+        $result[] = $r;
+    }
+    mysqli_free_result($request);
+    return $result;
+}
+
 function getAllDepartement()
 {
     $sql = " SELECT * FROM departments ";
     $req = make_request($sql);
-    $res = array();
-    while ($dep = mysqli_fetch_assoc($req)) {
-        $res[] = $dep;
-    }
-    mysqli_free_result($req);
-    return $res;
+    return request_to_array($req);
 }
 
 function getAllManagerEnCours($idDepartment)
@@ -22,25 +26,16 @@ function getAllManagerEnCours($idDepartment)
     $sql = " SELECT * FROM dept_manager  WHERE dept_no = '%s' ";
     $sql = sprintf($sql, $idDepartment);
     $req = make_request($sql);
+    return request_to_array($req);
 
-    while ($man = mysqli_fetch_assoc($req)) {
-        $res = $man;
-    }
-
-    mysqli_free_result($req);
-    return $res;
 }
 
 function getManagerEnCours($idDepartment)
 {
-    $sql = " SELECT * FROM dept_manager  WHERE dept_no = '%s' ORDER BY FROM_date DESC LIMIT 1";
+    $sql = " SELECT * FROM dept_manager  WHERE dept_no = '%s' ORDER BY from_date DESC LIMIT 1";
     $sql = sprintf($sql, $idDepartment);
     $req = make_request($sql);
-
-    while ($man = mysqli_fetch_assoc($req)) {
-        $res = $man;
-    }
-
+    $res = mysqli_fetch_assoc($req);    
     mysqli_free_result($req);
     return $res;
 }
@@ -60,12 +55,7 @@ function getEmployeeTitleRecord($idEmployee){
 
     $sql = sprintf($sql, $idEmployee);
     $req = make_request($sql);
-    $res = array();
-    while ($title = mysqli_fetch_assoc($req)) {
-        $res[] = $title;
-    }
-    mysqli_free_result($req);
-    return $res;
+    return request_to_array($req);
 }
 
 function countAllEmployee(){
@@ -87,7 +77,6 @@ function getName($employee)
 }
 
 
-
 function getDepartmentEmployee($idDepartment, $start, $nbr)
 {
     $sql = "SELECT employees.* FROM employees 
@@ -95,12 +84,7 @@ function getDepartmentEmployee($idDepartment, $start, $nbr)
                 JOIN departments ON dept_emp.dept_no = departments.dept_no WHERE dept_emp.dept_no = '%s' ORDER BY employees.hire_date DESC LIMIT %s,%s";
     $sql = sprintf($sql, $idDepartment, $start, $nbr);
     $req = make_request($sql);
-    $res = array();
-    while ($emp = mysqli_fetch_assoc($req)) {
-        $res[] = $emp;
-    }
-    mysqli_free_result($req);
-    return $res;
+    return request_to_array($req);
 }
 
 function getDepartment($idDepartment)
@@ -142,29 +126,19 @@ function getDateDiff($date)
 
 function getEmployeeSalaryRecord($idEmployee)
 {
-    $sql = "SELECT salary,FROM_date,to_date FROM salaries 
-            WHERE emp_no = '%s' ORDER BY FROM_date desc";
+    $sql = "SELECT salary,from_date,to_date FROM salaries 
+            WHERE emp_no = '%s' ORDER BY from_date desc";
     $sql = sprintf($sql, $idEmployee);
     $sql = make_request($sql);
-    $req = array();
-    while ($emp = mysqli_fetch_assoc($sql)) {
-        $req[] = $emp;
-    }
-    mysqli_free_result($sql);
-    return $req;
+    return request_to_array($sql);
 }
 
 function getEmployeeDepartmentRecord($idEmployee)
 {
-    $sql = "SELECT dept_emp.FROM_date, dept_emp.to_date, dept_emp.FROM_date, dept_emp.dept_no, departments.dept_name FROM dept_emp JOIN departments ON dept_emp.dept_no = departments.dept_no WHERE dept_emp.emp_no = '%s' ORDER BY dept_emp.FROM_date DESC";
+    $sql = "SELECT dept_emp.from_date, dept_emp.to_date, dept_emp.from_date, dept_emp.dept_no, departments.dept_name FROM dept_emp JOIN departments ON dept_emp.dept_no = departments.dept_no WHERE dept_emp.emp_no = '%s' ORDER BY dept_emp.from_date DESC";
     $sql = sprintf($sql, $idEmployee);
     $sql = make_request($sql);
-    $req = array();
-    while ($emp = mysqli_fetch_assoc($sql)) {
-        $req[] = $emp;
-    }
-    mysqli_free_result($sql);
-    return $req;
+    return request_to_array($sql);
 }
 
 function getNombreSalaire($idEmployee)
@@ -236,12 +210,7 @@ function rechercheEmployee($nom, $prenom, $ageMin, $ageMax, $departement, $offse
     // return $sql;
 
     $sql = make_request($sql);
-    $res = array();
-    while ($val = mysqli_fetch_assoc($sql)) {
-        $res[] = $val;
-    }
-    mysqli_free_result($sql);
-    return $res;
+    return request_to_array($sql);
 }
 
 function getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $departement){
