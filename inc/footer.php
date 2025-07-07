@@ -3,7 +3,10 @@
         <div class="row d-flex justify-content-between p-2">
             <div class="col-lg-4 d-none d-lg-block">
                 <p class="fw-bold figure-caption text-black">About</p>
-                <p class="figure-caption text-black">We are a solid company with millions of employees already working. Together, we build foundation which is aimed at changing the world for the better, every step on the way.</p>
+                <p class="figure-caption text-black">
+                    We are a forward-thinking organization committed to innovation, collaboration, and global impact. With a growing community of dedicated professionals, we strive to create meaningful change and shape a better future for all.
+                </p>
+
                 <span class="fw-bold figure-caption text-black">Connect with us</span>
                 <br>
                 <img src="../assets/images/facebook.svg" alt="" class="img-fluid border rounded-1 p-2">

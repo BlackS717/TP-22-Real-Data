@@ -51,6 +51,14 @@ function getEmployee($idEmployee)
     return $res;
 }
 
+function countAllEmployee(){
+    $sql = "SELECT COUNT(*) as total from employees";
+    $req = mysqli_query(dbconnect(), $sql);
+    $res = mysqli_fetch_assoc($req);
+    mysqli_free_result($req);
+    return $res['total'];
+}
+
 function getName($employee)
 {
     return $employee["first_name"] . " " . $employee["last_name"];

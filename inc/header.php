@@ -13,7 +13,7 @@
                     <a class="nav-link text-danger" href="#footer">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../pages/recherche.php">Recherche</a>
+                    <a class="nav-link" href="../pages/recherche.php">Search</a>
                 </li>
             </ul>
         </section>

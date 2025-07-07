@@ -21,9 +21,9 @@ $departements = getAllDepartement();
 
     <main class="container">
         <section class="row">
-            <section class="col-lg-4 mx-auto mt-3 text-center">
-                <h2 class="text-danger fw-bold">Available Departments</h2>
-                <p class="figure-caption">We'll provide full service at every step</p>
+            <section class="col-12 mx-auto mt-3 text-center">
+                <h2 class="text-danger fw-bold">Explore Our Departments</h2>
+                <p class="figure-caption">Total number of employee: <?= countAllEmployee() ?></p>
             </section>
         </section>
 
@@ -33,26 +33,30 @@ $departements = getAllDepartement();
                     <article class="col gap-1 mb-3 list-departements d-inline-flex  justify-content-evenly align-items-center flex-wrap">
                         <?php for ($i = 0; $i < count($departements); $i++) {
                             $departement = $departements[$i];
-                            $idManagerEnCours = getManagerEnCours($departement["dept_no"])["emp_no"] ;
+                            $idDepartement = $departement['dept_no'];
+                            $idManagerEnCours = getManagerEnCours($departement["dept_no"])["emp_no"];
                             $managerEnCours = getEmployee($idManagerEnCours);
+                            $nbrEmployee = getCountDepartmentEmployee($idDepartement)
                         ?>
-                        <a href="department_info.php?id=<?= $departement["dept_no"] ?>">
-                            <section class="card " style="width: 18rem;min-width: 18rem;">
-                                <img src="../assets/images/dep_placeholder.jpg" class="card-img-top img-fluid" style="height: 200px" alt="...">
-                                <section class="card-body">
-                                    <section class="d-flex flex-column justify-content-between">
-                                        <span class="card-title fw-bold"><?= $departement["dept_name"]?></span>
-                                        <hr>
-                                        <span class="card-text ">Manager: <?= getName($managerEnCours)  ?></span>
-                                        <hr>
-                                        <span class="card-text d-flex align-items-center gap-2">
-                                            <img src="../assets/images/activity.svg" class="img-fluid" style="width: 20px" alt="">
-                                            <img src="../assets/images/share.svg" class="img-fluid" style="width: 20px" alt="">
-                                            <img src="../assets/images/bar-chart-fill.svg" alt="" class="img-fluid" style="width: 20px">
-                                        </span>
+                            <a href="department_info.php?id=<?= $departement["dept_no"] ?>">
+                                <section class="card " style="width: 18rem;min-width: 18rem;">
+                                    <img src="../assets/images/dep_placeholder.jpg" class="card-img-top img-fluid" style="height: 200px" alt="...">
+                                    <section class="card-body">
+                                        <section class="d-flex flex-column justify-content-between">
+                                            <span class="card-title fw-bold"><?=
+                                                                                $departement["dept_name"] ?></span>
+                                            <span class="card-title fw-bold"><?= $nbrEmployee ?> employees</span>
+                                            <hr>
+                                            <span class="card-text ">Manager: <?= getName($managerEnCours)  ?></span>
+                                            <hr>
+                                            <span class="card-text d-flex align-items-center gap-2">
+                                                <img src="../assets/images/activity.svg" class="img-fluid" style="width: 20px" alt="">
+                                                <img src="../assets/images/share.svg" class="img-fluid" style="width: 20px" alt="">
+                                                <img src="../assets/images/bar-chart-fill.svg" alt="" class="img-fluid" style="width: 20px">
+                                            </span>
+                                        </section>
                                     </section>
                                 </section>
-                            </section>
                             </a>
                         <?php
                         }
