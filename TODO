@@ -44,7 +44,14 @@ Task:
     _ page to change department
         - current department (ok)
         - form with date, and list department excluding the current one (ok)
-    _     
+    _ form validation page
+        - start date must be higher or equals the current department start date
+        - update dept_emp with the new value if valid
+        - show an error message if invalid
+    _ button to be a manager in fiche employee
+        - validate data
+        - update dept_manager if valid
+        - show an error message if invalid
         
 
     

@@ -65,12 +65,12 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
 
                                 <?php
                                 $employee = $employees[$i];
-                                $img = $employee["gender"] == "M" ? "../assets/images/m_placeholder.jpg" : "../assets/images/f_placeholder.jpg";
+                                $img = "../assets/images/".strtolower($employee["gender"])."_placeholder.jpg";
                                 $name = getName($employee);
                                 $age = getAge($employee);
                                 $hireDate = $employee["hire_date"];
                                 ?>
-                                <section class="card " style="width: 18rem;min-width: 18rem;">
+                                <section class="card " style="width: 18rem;">
                                     <img src="<?= $img ?>" class="card-img-top img-fluid" alt="...">
                                     <section class="card-body">
                                         <section class="d-flex flex-column justify-content-between">
