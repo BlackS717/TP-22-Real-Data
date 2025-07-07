@@ -34,7 +34,7 @@ Task:
     _ show salary history (ok)
     _ show position history(ok)
     _ search form (ok)
-    _ search result (wip)
+    _ search result (ok)
         - first 20 result(ok)
         - next and previous button(ok)
     _ show nbr employee in index (ok)
