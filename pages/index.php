@@ -32,6 +32,7 @@ $departements = getAllDepartement();
                 <section class="row mx-auto">
                     <article class="col gap-1 mb-3 list-departements d-inline-flex  justify-content-evenly align-items-center flex-wrap">
                         <?php for ($i = 0; $i < count($departements); $i++) {
+                            $img_id = $i % 9;
                             $departement = $departements[$i];
                             $idDepartement = $departement['dept_no'];
                             $idManagerEnCours = getManagerEnCours($idDepartement)["emp_no"];
@@ -40,7 +41,7 @@ $departements = getAllDepartement();
                         ?>
 
                             <section class="card" style="width: 18rem;min-width: 18rem;">
-                                <img src="../assets/images/dep_placeholder.jpg" class="card-img-top img-fluid" style="height: 200px" alt="...">
+                                <img src="../assets/images/dep_placeholder<?= ($img_id) ?>.jpg" class="card-img-top img-fluid" style="height: 200px" alt="...">
                                 <section class="card-body">
                                     <section class="d-flex flex-column justify-content-between">
                                         <span class="card-title fw-bold"><?=
