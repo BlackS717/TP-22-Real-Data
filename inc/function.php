@@ -51,6 +51,19 @@ function getEmployee($idEmployee)
     return $res;
 }
 
+function getEmployeeTitleRecord($idEmployee){
+    $sql = "SELECT * from titles JOIN employees ON employees.emp_no = titles.emp_no WHERE titles.emp_no = '%s'";
+
+    $sql = sprintf($sql, $idEmployee);
+    $req = mysqli_query(dbconnect(), $sql);
+    $res = array();
+    while ($title = mysqli_fetch_assoc($req)) {
+        $res[] = $title;
+    }
+    mysqli_free_result($req);
+    return $res;
+}
+
 function countAllEmployee(){
     $sql = "SELECT COUNT(*) as total from employees";
     $req = mysqli_query(dbconnect(), $sql);
@@ -77,6 +90,7 @@ function getDepartmentEmployee($idDepartment, $start, $nbr)
     while ($emp = mysqli_fetch_assoc($req)) {
         $res[] = $emp;
     }
+    mysqli_free_result($req);
     return $res;
 }
 
@@ -117,7 +131,7 @@ function getDateDiff($date)
     return $data['diffYear'];
 }
 
-function getEmployeeSalaire($idEmployee)
+function getEmployeeSalaryRecord($idEmployee)
 {
     $sql = "select salary,from_date,to_date from salaries 
             where emp_no = '%s' order by from_date desc";
@@ -131,10 +145,9 @@ function getEmployeeSalaire($idEmployee)
     return $req;
 }
 
-function getEmployeeDepartment($idEmployee)
+function getEmployeeDepartmentRecord($idEmployee)
 {
-    $sql = "select from_date,to_date,title from titles 
-            where emp_no = '%s' order by from_date desc";
+    $sql = "SELECT dept_emp.from_date, dept_emp.to_date, dept_emp.from_date, dept_emp.dept_no, departments.dept_name FROM dept_emp JOIN departments ON dept_emp.dept_no = departments.dept_no WHERE dept_emp.emp_no = '%s' ORDER BY dept_emp.from_date DESC";
     $sql = sprintf($sql, $idEmployee);
     $sql = mysqli_query(dbconnect(), $sql);
     $req = array();

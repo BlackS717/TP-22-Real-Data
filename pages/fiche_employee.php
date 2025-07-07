@@ -5,8 +5,10 @@ $idEmployee = isset($_GET["employee"]) ? $_GET["employee"] : 0;
 
 $employee = getEmployee($idEmployee);
 
-$ficheDep = getEmployeeDepartment($idEmployee);
-$ficheSalaires = getEmployeeSalaire($idEmployee);
+$ficheDepartments = getEmployeeDepartmentRecord($idEmployee);
+$ficheSalaires = getEmployeeSalaryRecord($idEmployee);
+
+$fichePositions = getEmployeeTitleRecord($idEmployee);
 
 $numberSalary = getNombreSalaire($idEmployee);
 $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
@@ -91,7 +93,7 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
                             </div>
 
                             <div class="col-12">
-                                <table class="col gap-3  table table-striped table-sm table-hover align-middle caption-top table-hover ">
+                                <table class="col gap-3  table table-warning table-striped table-sm table-hover align-middle caption-top table-hover ">
                                     <caption>Employee Department Records</caption>
                                     <tr>
                                         <th>Start</th>
@@ -99,11 +101,49 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
                                         <th>Department</th>
                                     </tr>
                                     <?php for ($i = 0; $i < $nbrDepEmp; $i++) {
+                                        $ficheDepartment = $ficheDepartments[$i];
+                                        $terminated = $ficheDepartment["to_date"] != "9999-01-01";
+
+                                        $start_date = $ficheDepartment["from_date"];
+                                        $end_date = $terminated ? $ficheDepartment["to_date"] : "-";
+                                        $nomDepartement = $ficheDepartment["dept_name"];
+
+
                                     ?>
                                         <tr>
-                                            <td><?= $ficheDep[$i]["from_date"] ?></td>
-                                            <td><?= $ficheDep[$i]["to_date"] ?></td>
-                                            <td><?= $ficheDep[$i]["title"] ?></td>
+                                            <td><?= $start_date ?></td>
+                                            <td><?= $end_date ?></td>
+                                            <td><?= $nomDepartement ?></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </table>
+                            </div>
+
+                            <div class="col-12">
+                                <table class="col gap-3  table table-success table-striped table-sm table-hover align-middle caption-top table-hover ">
+                                    <caption>Employee Position Records</caption>
+                                    <tr>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                        <th>Position</th>
+                                    </tr>
+                                    <?php for ($i = 0; $i < $nbrDepEmp; $i++) {
+                                        $fichePosition = $fichePositions[$i];
+                                        $terminated = $fichePosition["to_date"] != "9999-01-01";
+
+                                        $start_date = $fichePosition['from_date'];
+                                        $end_date = $terminated ? $fichePosition['to_date'] : "-";
+                                        $position = $fichePosition['title'];
+
+
+
+                                    ?>
+                                        <tr>
+                                            <td><?= $start_date ?></td>
+                                            <td><?= $end_date ?></td>
+                                            <td><?= $position ?></td>
                                         </tr>
                                     <?php
                                     }

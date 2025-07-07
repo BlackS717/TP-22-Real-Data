@@ -18,7 +18,9 @@ Function:
     _ getDepartment (ok)
     _ getCountDepartmentEmployee (ok)
     _ getAge (ok)
-    _ getEmployeeSalaire (ok) // salary history
+    _ getEmployeeTitleRecord(ok)
+    _ getEmployeeDepartmentRecord(ok)
+    _ getEmployeeSalaryRecord (ok) // salary history
     _ getNombreEmployeDepartement (ok) // position history
     _ rechercheEmployee(ok)
     _ getTotalMatchingValue(ok)
@@ -27,7 +29,8 @@ Function:
     _ countMaleEmployees
     _ countFemaleEmployeesInDepartement
     _ countMaleEmployeesInDepartement
-    
+    _ getLongestHeldPosition
+
 
 
 Task:
@@ -38,7 +41,8 @@ Task:
     _ show all employee (ok)
     _ show per segment (ok)
     _ show salary history (ok)
-    _ show position history(ok)
+    _ show department history (ok)
+    _ show position history(wip)
     _ search form (ok)
     _ search result (ok)
         - first 20 result(ok)
