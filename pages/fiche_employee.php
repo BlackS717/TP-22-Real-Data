@@ -6,7 +6,7 @@ $idEmployee = isset($_GET["employee"]) ? $_GET["employee"] : 0;
 $employee = getEmployee($idEmployee);
 
 $ficheDep = getEmployeeDepartment($idEmployee);
-$ficheSalaire = getEmployeeSalaire($idEmployee);
+$ficheSalaires = getEmployeeSalaire($idEmployee);
 
 $numberSalary = getNombreSalaire($idEmployee);
 $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
@@ -61,19 +61,27 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
                             <div class="col-12 ">
                                 <table class="col gap-3 table table-primary table-striped table-hover align-middle caption-top "
                                     style="max-height: fit-content;">
-                                    <caption>Salaire de l'employee</caption>
+                                    <caption>Employee Salary Record</caption>
                                     <tr>
-                                        <th>Debut</th>
-                                        <th>Fin</th>
-                                        <th>Salaire</th>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                        <th>Salary</th>
                                     </tr>
 
                                     <?php for ($i = 0; $i < $numberSalary; $i++) {
+                                        $ficheSalaire = $ficheSalaires[$i];
+
+                                        $terminated = $ficheSalaire["to_date"] != "9999-01-01";
+
+                                        $start_date = $ficheSalaire["from_date"];
+                                        $end_date = $terminated ? $ficheSalaire["to_date"] : "-";
+                                        $salary = $ficheSalaire["salary"];
+
                                     ?>
                                         <tr>
-                                            <td><?= $ficheSalaire[$i]["from_date"] ?></td>
-                                            <td><?= $ficheSalaire[$i]["to_date"] ?></td>
-                                            <td><?= $ficheSalaire[$i]["salary"] ?></td>
+                                            <td><?= $start_date ?></td>
+                                            <td><?= $end_date ?></td>
+                                            <td><?= $salary ?></td>
                                         </tr>
                                     <?php
                                     }
@@ -84,11 +92,11 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
 
                             <div class="col-12">
                                 <table class="col gap-3  table table-striped table-sm table-hover align-middle caption-top table-hover ">
-                                    <caption>Departement de l'employee</caption>
+                                    <caption>Employee Department Records</caption>
                                     <tr>
-                                        <th>Debut</th>
-                                        <th>Fin</th>
-                                        <th>Departement</th>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                        <th>Department</th>
                                     </tr>
                                     <?php for ($i = 0; $i < $nbrDepEmp; $i++) {
                                     ?>

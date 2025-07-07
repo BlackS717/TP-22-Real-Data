@@ -22,6 +22,12 @@ Function:
     _ getNombreEmployeDepartement (ok) // position history
     _ rechercheEmployee(ok)
     _ getTotalMatchingValue(ok)
+    _ getJobAverageSalary
+    _ countFemaleEmployees
+    _ countMaleEmployees
+    _ countFemaleEmployeesInDepartement
+    _ countMaleEmployeesInDepartement
+    
 
 
 Task:
