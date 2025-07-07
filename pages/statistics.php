@@ -8,8 +8,14 @@ $idDepartment = isset($_GET['id_department']) ? $_GET['id_department'] : "-1";
 
 $femaleEmployeeCount = countAllFemaleEmployee();
 $maleEmployeeCount = countAllMaleEmployee();
-$totalEmployeeCount = countAllEmployee();
 
+$decimal = 2;
+$maleEmployeePercentage = convertToPercentage($maleEmployeeCount, $decimal);
+$femaleEmployeePercentage = convertToPercentage($femaleEmployeeCount, $decimal);
+$totalEmployeeCount = countAllEmployee();
+$totalEmployeePercentage = convertToPercentage($totalEmployeeCount, $decimal);
+
+$positionsEmployee = getAllPositionsInfo();
 
 
 ?>
@@ -52,18 +58,17 @@ $totalEmployeeCount = countAllEmployee();
                     <tr>
                         <td>Male</td>
                         <td><?= $maleEmployeeCount ?></td>
-                        <td><?= convertToPercentage($maleEmployeeCount) ?> %</td>
+                        <td><?= $maleEmployeePercentage ?> %</td>
                     </tr>
                     <tr>
                         <td>Female</td>
                         <td><?= $femaleEmployeeCount ?></td>
-                        <td><?= convertToPercentage($femaleEmployeeCount) ?> %</td>
+                        <td><?= $femaleEmployeePercentage ?> %</td>
                     </tr>
-                    <tr class="table-primary">
+                    <tr>
                         <td>Total</td>
                         <td><?= $totalEmployeeCount ?></td>
-                        <td><?= convertToPercentage($totalEmployeeCount) ?> %</td>
-                    </tr>
+                        <td><?= $totalEmployeePercentage ?> </td>
                 </tbody>
             </table>
         </div>
@@ -80,7 +85,23 @@ $totalEmployeeCount = countAllEmployee();
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
 
+                    for ($i = 0; $i < count($positionsEmployee); $i++) {
+                        $positionEmployee = $positionsEmployee[$i];
+                        $title = $positionEmployee['title'];
+                        $nbrEmployee = $positionsEmployee[$i]['nbr_employee'];
+                        $salary = $positionEmployee['avg_salary'];
+                    ?>
+                        <tr>
+                            <td><?= $title ?></td>
+                            <td><?= $salary ?></td>
+                            <td><?= $nbrEmployee ?></td>
+                        </tr>
+                    <?php
+                    }
+
+                    ?>
                 </tbody>
             </table>
         </div>

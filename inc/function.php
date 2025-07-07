@@ -1,20 +1,23 @@
 <?php
 require("connection.php");
 
-function make_request($request){
+function make_request($request)
+{
     return mysqli_query(dbconnect(), $request);
 }
 
-function request_to_array($request){
+function request_to_array($request)
+{
     $result = array();
-    while($r = mysqli_fetch_assoc($request)){
+    while ($r = mysqli_fetch_assoc($request)) {
         $result[] = $r;
     }
     mysqli_free_result($request);
     return $result;
 }
 
-function fetch_result($request){
+function fetch_result($request)
+{
     $result = mysqli_fetch_assoc($request);
     mysqli_free_result($request);
     return $result;
@@ -33,7 +36,6 @@ function getAllManagerEnCours($idDepartment)
     $sql = sprintf($sql, $idDepartment);
     $req = make_request($sql);
     return request_to_array($req);
-
 }
 
 function getManagerEnCours($idDepartment)
@@ -41,7 +43,7 @@ function getManagerEnCours($idDepartment)
     $sql = " SELECT * FROM dept_manager  WHERE dept_no = '%s' ORDER BY from_date DESC LIMIT 1";
     $sql = sprintf($sql, $idDepartment);
     $req = make_request($sql);
-    $res = mysqli_fetch_assoc($req);    
+    $res = mysqli_fetch_assoc($req);
     mysqli_free_result($req);
     return $res;
 }
@@ -56,7 +58,8 @@ function getEmployee($idEmployee)
     return $res;
 }
 
-function getEmployeeTitleRecord($idEmployee){
+function getEmployeeTitleRecord($idEmployee)
+{
     $sql = "SELECT * FROM titles JOIN employees ON employees.emp_no = titles.emp_no WHERE titles.emp_no = '%s'";
 
     $sql = sprintf($sql, $idEmployee);
@@ -64,7 +67,8 @@ function getEmployeeTitleRecord($idEmployee){
     return request_to_array($req);
 }
 
-function countAllEmployee(){
+function countAllEmployee()
+{
     $sql = "SELECT COUNT(*) as total FROM employees";
     $req = mysqli_query(dbconnect(), $sql);
     $res = mysqli_fetch_assoc($req);
@@ -72,13 +76,15 @@ function countAllEmployee(){
     return $res['total'];
 }
 
-function countAllFemaleEmployee(){
+function countAllFemaleEmployee()
+{
     $sql = "SELECT COUNT(*) as nbr FROM employees WHERE gender = 'F'";
     $req = make_request($sql);
     return fetch_result($req)['nbr'];
 }
 
-function countAllMaleEmployee(){
+function countAllMaleEmployee()
+{
     $sql = "SELECT COUNT(*) as nbr FROM employees WHERE gender = 'M'";
     $req = make_request($sql);
     return fetch_result($req)['nbr'];
@@ -278,20 +284,58 @@ function getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $departement)
 }
 
 
-function changeEmployeeDepartment($idEmployee,$idNewDep,$newDate)
+function changeEmployeeDepartment($idEmployee, $idNewDep, $newDate)
 {
     $ancienDep = getEmployeeDepartmentRecord($idEmployee)[0];
     $sql = "update dept_emp set to_date = '%s' WHERE emp_no = '%s'";
-    $sql = sprintf($sql,$idEmployee,$newDate);
-    make_request($sql);
+    $sql = sprintf($sql, $idEmployee, $newDate);
 
     $sql1 = "insert into dept_emp values ('%s','%s','%s','9999-01-01')";
-    $sql1 = sprintf($sql1,$idEmployee,$idNewDep,$newDate);
-    make_request($sql1);
+    $sql1 = sprintf($sql1, $idEmployee, $idNewDep, $newDate);
 }
 
-function convertToPercentage($employeeCount){
+function convertToPercentage($employeeCount, $decimal)
+{
     $totalEmployeeNumber = countAllEmployee();
     $percentage = ($employeeCount * 100) / $totalEmployeeNumber;
-    return $percentage ;
+    return round($percentage, $decimal);
+}
+
+function getAllPositions()
+{
+    $sql = "SELECT DISTINCT title FROM titles";
+    $request = make_request($sql);
+    return request_to_array($request);
+}
+
+function countEmployeeInPosition($position)
+{
+    $sql = "SELECT COUNT(*) AS nbr FROM titles WHERE title = '%s'";
+    $sql = sprintf($sql, $position);
+    $request = make_request($sql);
+    return fetch_result($request)['nbr'];
+}
+
+function getAllPositionsInfo()
+{
+    $latest_title_alias = "t_latest";
+    $latest_title = "   ( SELECT t1.emp_no, t1.title FROM titles t1 JOIN 
+                            (
+                                SELECT emp_no, MAX(from_date) AS max_from FROM titles GROUP BY emp_no
+                            ) AS t2 ON t1.emp_no = t2.emp_no AND t1.from_date = t2.max_from 
+                        ) AS " . $latest_title_alias;
+
+    $latest_salary_alias = "s_latest";
+    $latest_salary = "  ( SELECT s1.emp_no, s1.salary FROM salaries s1 JOIN 
+                            (
+                                SELECT emp_no, MAX(from_date) AS max_from FROM salaries GROUP BY emp_no
+                            ) AS s2 ON s1.emp_no = s2.emp_no AND s1.from_date = s2.max_from
+                        )  AS " . $latest_salary_alias;
+
+    $sql = "SELECT " . $latest_title_alias . ".title, COUNT(DISTINCT " . $latest_title_alias . ".emp_no) AS nbr_employee, AVG(" . $latest_salary_alias . ".salary) AS avg_salary FROM" . $latest_title
+        . " JOIN "
+        . $latest_salary
+        . " ON " . $latest_title_alias . ".emp_no = " . $latest_salary_alias . ".emp_no GROUP BY " . $latest_title_alias . ".title ORDER BY nbr_employee DESC";
+    $request = make_request($sql);
+    return request_to_array($request);
 }

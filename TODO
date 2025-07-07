@@ -26,9 +26,14 @@ Function:
     _ getTotalMatchingValue(ok)
     _ countFemaleEmployees (ok)
     _ countMaleEmployees (ok)
+    _ getAllPositions(ok)
+    _ getAllPositionsInfo(ok)
+    _ countEmployeeInPosition(ok)
+    _ getJobAverageSalary
+    _ countFemaleEmployeeInPosition
+    _ countMaleEmployeeInPosition
     _ countFemaleEmployeesInDepartement
     _ countMaleEmployeesInDepartement
-    _ getJobAverageSalary
     _ getLongestHeldPosition
 
 
