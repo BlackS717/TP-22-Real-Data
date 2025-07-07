@@ -34,7 +34,7 @@ $departements = getAllDepartement();
                         <?php for ($i = 0; $i < count($departements); $i++) {
                             $departement = $departements[$i];
                             $idDepartement = $departement['dept_no'];
-                            $idManagerEnCours = getManagerEnCours($departement["dept_no"])["emp_no"];
+                            $idManagerEnCours = getManagerEnCours($idDepartement)["emp_no"];
                             $managerEnCours = getEmployee($idManagerEnCours);
                             $nbrEmployee = getCountDepartmentEmployee($idDepartement)
                         ?>
