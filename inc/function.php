@@ -268,15 +268,13 @@ function getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $departement)
         $sql .= implode(" AND ", $conditions);
     }
 
-    $result = make_request($sql);
+    $request = make_request($sql);
 
-    if (!$result) {
+    if (!$request) {
         return 0;
     }
 
-    $row = mysqli_fetch_assoc($result);
-    mysqli_free_result($result);
-    return $row['total'];
+    return fetch_result($request)['total'];
 }
 
 
