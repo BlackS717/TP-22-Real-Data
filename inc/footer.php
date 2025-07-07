@@ -18,29 +18,11 @@
             <div class="col-sm-6">
                 <p class="fw-bold figure-caption text-black row">Navigations</p>
                 <div class="row">
-                    <div class="d-flex flex-column col-4">
-                        <div class="figure-caption text-black">Home</div>
-                        <div class="figure-caption text-black">Services</div>
-                        <div class="figure-caption text-black">Work</div>
-                        <div class="figure-caption text-black">Process</div>
-                        <div class="figure-caption text-black">About Us</div>
-                    </div>
+                    <ul class="d-flex flex-column list-unstyled">
+                        <li class="figure-caption text-black"><a href="../pages/index.php">Home</a></li>
 
-                    <div class="d-flex flex-column col-4">
-                        <div class="figure-caption text-black">Press</div>
-                        <div class="figure-caption text-black">Blog</div>
-                        <div class="figure-caption text-black">Contact</div>
-                        <div class="figure-caption text-black">Support</div>
-                        <div class="figure-caption text-black">Privacy</div>
-                    </div>
-                    
-                    <div class="d-flex flex-column col-4">
-                        <div class="figure-caption text-black">Privacy</div>
-                        <div class="figure-caption text-black">FAQ</div>
-                        <div class="figure-caption text-black">Careers</div>
-                        <div class="figure-caption text-black">Process</div>
-                        <div class="figure-caption text-black">About Us</div>
-                    </div>
+                        <li class="figure-caption text-black"><a href="../pages/recherche.php">Search</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
