@@ -68,9 +68,9 @@ function getName($employee)
 
 function getDepartmentEmployee($idDepartment, $start, $nbr)
 {
-    $sql = "select employees.* from employees 
-                join dept_emp on employees.emp_no = dept_emp.emp_no 
-                join departments on dept_emp.dept_no = '%s' limit %s,%s";
+    $sql = "SELECT employees.* FROM employees 
+                JOIN dept_emp ON employees.emp_no = dept_emp.emp_no 
+                JOIN departments ON dept_emp.dept_no = departments.dept_no WHERE dept_emp.dept_no = '%s' ORDER BY employees.hire_date DESC LIMIT %s,%s";
     $sql = sprintf($sql, $idDepartment, $start, $nbr);
     $req = mysqli_query(dbconnect(), $sql);
     $res = array();

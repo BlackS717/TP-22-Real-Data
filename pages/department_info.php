@@ -10,9 +10,6 @@ $employees = getDepartmentEmployee($idDepartement, $start, $nbrToShow);
 $nbrEmployees = getCountDepartmentEmployee($idDepartement);
 $nbrEmployeesdivided = ceil($nbrEmployees / $nbrToShow);
 $next = $start + $nbrToShow;
-if ($next > $nbrEmployees) {
-    $next = 0;
-}
 $previous = $start - $nbrToShow;
 if ($previous < 0) {
     $previous = 0;
@@ -45,6 +42,11 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
                     <li class="page-item <?= $activePrevious ?>">
                         <a class="page-link" href="department_info.php?start=<?= $previous ?>&&id=<?= $idDepartement ?>">Previous</a>
                     </li>
+
+                    <li class="page-item disabled">
+                        <a href="" class="page-link"><?= $start + 1 ?> - <?= $start + count($employees) ?></a>
+                    </li>
+
                     <li class="page-item <?= $activeNext ?>">
                         <a class="page-link" href="department_info.php?start=<?= $next ?>&&id=<?= $idDepartement ?>">Next</a>
                     </li>
@@ -67,7 +69,7 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
                                 $hireDate = $employee["hire_date"];
                                 ?>
                                 <section class="card " style="width: 18rem;min-width: 18rem;">
-                                    <img src="<?= $img ?>" class="card-img-top img-fluid" style="height: 310px" alt="...">
+                                    <img src="<?= $img ?>" class="card-img-top img-fluid" alt="...">
                                     <section class="card-body">
                                         <section class="d-flex flex-column justify-content-between">
                                             <span class="card-title fw-bold"><?= $name ?></span>

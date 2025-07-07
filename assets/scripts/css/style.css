@@ -13,6 +13,15 @@ a{
     transform: translateY(-5px);
 }
 
+.list-employees a{
+    transition: all 0.3s ease-in-out;
+}
+
+.list-employees a:hover{
+    transform: translateY(-5px);
+}
+
+
 .pagination{
     display: flex;
     justify-content: center;
