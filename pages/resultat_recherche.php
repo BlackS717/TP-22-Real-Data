@@ -56,7 +56,7 @@ $valueToPass = implode("&&", $values);
     </header>
     <main class="container">
         <section class="row">
-            <h3><?= $nbrEmployees ?> result(s)</h3>
+            <h3><?= $nbrEmployees ?> Employee(s)</h3>
         </section>
         <section class="row">
             <nav aria-label="Page navigation example">
