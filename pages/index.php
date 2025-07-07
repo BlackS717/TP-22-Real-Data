@@ -38,26 +38,29 @@ $departements = getAllDepartement();
                             $managerEnCours = getEmployee($idManagerEnCours);
                             $nbrEmployee = getCountDepartmentEmployee($idDepartement)
                         ?>
-                            <a href="department_info.php?id=<?= $departement["dept_no"] ?>">
-                                <section class="card " style="width: 18rem;min-width: 18rem;">
-                                    <img src="../assets/images/dep_placeholder.jpg" class="card-img-top img-fluid" style="height: 200px" alt="...">
-                                    <section class="card-body">
-                                        <section class="d-flex flex-column justify-content-between">
-                                            <span class="card-title fw-bold"><?=
-                                                                                $departement["dept_name"] ?></span>
-                                            <span class="card-title fw-bold"><?= $nbrEmployee ?> employees</span>
-                                            <hr>
-                                            <span class="card-text ">Manager: <?= getName($managerEnCours)  ?></span>
-                                            <hr>
-                                            <span class="card-text d-flex align-items-center gap-2">
-                                                <img src="../assets/images/activity.svg" class="img-fluid" style="width: 20px" alt="">
-                                                <img src="../assets/images/share.svg" class="img-fluid" style="width: 20px" alt="">
+
+                            <section class="card" style="width: 18rem;min-width: 18rem;">
+                                <img src="../assets/images/dep_placeholder.jpg" class="card-img-top img-fluid" style="height: 200px" alt="...">
+                                <section class="card-body">
+                                    <section class="d-flex flex-column justify-content-between">
+                                        <span class="card-title fw-bold"><?=
+                                                                            $departement["dept_name"] ?></span>
+                                        <span class="card-title fw-bold"><?= $nbrEmployee ?> employees</span>
+                                        <hr>
+                                        <span class="card-text ">Manager: <?= getName($managerEnCours)  ?></span>
+                                        <hr>
+                                        <span class="card-text d-flex align-items-center gap-2">
+                                            <a href="department_info.php?id=<?= $idDepartement ?>">
+                                                <img src="../assets/images/person-circle.svg" class="img-fluid" style="width: 20px" alt="">
+                                            </a>
+
+                                            <a href="department_stats.php?id_department=<?= $idDepartement ?>">
                                                 <img src="../assets/images/bar-chart-fill.svg" alt="" class="img-fluid" style="width: 20px">
-                                            </span>
-                                        </section>
+                                            </a>
+                                        </span>
                                     </section>
                                 </section>
-                            </a>
+                            </section>
                         <?php
                         }
                         ?>

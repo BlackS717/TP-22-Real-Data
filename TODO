@@ -38,7 +38,7 @@ Task:
         - first 20 result(ok)
         - nav button(ok)
     _ show nbr employee in index (ok)
-    _ show job stats
+    _ show job stats (wip)
     _ show longest job in historique_employee
 
     
