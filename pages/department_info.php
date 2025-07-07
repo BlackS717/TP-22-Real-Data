@@ -6,10 +6,12 @@ $start = isset($_GET["start"]) ? $_GET["start"] : 0;
 
 $nbrToShow = 20;
 $employees = getDepartmentEmployee($idDepartement, $start, $nbrToShow);
+$employeeCount = count($employees);
+
 
 $nbrEmployees = getCountDepartmentEmployee($idDepartement);
 $nbrEmployeesdivided = ceil($nbrEmployees / $nbrToShow);
-$next = $start + $nbrToShow;
+$next = $start + $employeeCount;
 $previous = $start - $nbrToShow;
 if ($previous < 0) {
     $previous = 0;
@@ -44,7 +46,7 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
                     </li>
 
                     <li class="page-item disabled">
-                        <a href="" class="page-link"><?= $start + 1 ?> - <?= $start + count($employees) ?></a>
+                        <a href="" class="page-link"><?= $start + 1 ?> - <?= $start + $employeeCount ?></a>
                     </li>
 
                     <li class="page-item <?= $activeNext ?>">
@@ -57,7 +59,7 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
             <section class="col-lg-12">
                 <section class="row mx-auto">
                     <article class="col gap-1 mb-3 list-employees d-inline-flex  justify-content-evenly align-items-center flex-wrap">
-                        <?php for ($i = 0; $i < $nbrToShow; $i++) {
+                        <?php for ($i = 0; $i < $employeeCount; $i++) {
                         ?>
                             <a href="fiche_employee.php?employee=<?= $employees[$i]["emp_no"] ?>">
 
