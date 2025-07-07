@@ -24,11 +24,11 @@ Function:
     _ getNombreEmployeDepartement (ok)
     _ rechercheEmployee(ok)
     _ getTotalMatchingValue(ok)
-    _ getJobAverageSalary
-    _ countFemaleEmployees
-    _ countMaleEmployees
+    _ countFemaleEmployees (ok)
+    _ countMaleEmployees (ok)
     _ countFemaleEmployeesInDepartement
     _ countMaleEmployeesInDepartement
+    _ getJobAverageSalary
     _ getLongestHeldPosition
 
 
