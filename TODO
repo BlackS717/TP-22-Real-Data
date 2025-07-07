@@ -37,7 +37,7 @@ Task:
     _ search result (wip)
         - first 20 result(ok)
         - next and previous button(ok)
-    _ show nbr employee in index
+    _ show nbr employee in index (ok)
     _ show job stats
     _ show longest job in historique_employee
 
