@@ -10,7 +10,6 @@ a{
 }
 
 .list-departements a:hover{
-    box-shadow: 5px 5px 15px rgba(230, 150, 150, 0.25);
     transform: translateY(-5px);
 }
 
