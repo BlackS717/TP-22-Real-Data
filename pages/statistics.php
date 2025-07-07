@@ -36,9 +36,6 @@ $positionsEmployee = getAllPositionsInfo();
         <?php include("../inc/header.php"); ?>
     </header>
     <main class="container">
-        <div class="alert alert-warning mt-2">
-            <p class="lead">TODO: Créer un tableau contenant le nombre d'employé (homme et femme ), et le salaire moyen pour chaque emploi</p>
-        </div>
 
         <h1 class="text-danger">Employee Statistics</h1>
         <p class="lead">An overview of workforce composition and salary insights.</p>
@@ -105,24 +102,6 @@ $positionsEmployee = getAllPositionsInfo();
                 </tbody>
             </table>
         </div>
-
-        <div class="row">
-            <h4 class="">Employees per Department</h4>
-            <table class="table table-striped table-bordered">
-                <caption>Number of employees in each department</caption>
-                <thead>
-                    <tr>
-                        <th>Department</th>
-                        <th>Employee Count</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-        </div>
-
-
     </main>
 
     <footer class="bg-white shadow-sm pt-2" id="footer">

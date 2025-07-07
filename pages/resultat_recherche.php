@@ -92,17 +92,17 @@ $valueToPass = implode("&&", $values);
                                 $age = getAge($employee);
                                 $hireDate = $employee["hire_date"];
                                 ?>
-                                <section class="card " style="width: 18rem;min-width: 18rem;">
+                                <div class="card " style="width: 18rem;min-width: 18rem;">
                                     <img src="<?= $img ?>" class="card-img-top img-fluid" style="height: 310px" alt="...">
-                                    <section class="card-body">
-                                        <section class="d-flex flex-column justify-content-between">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column justify-content-between">
                                             <span class="card-title fw-bold"><?= $name ?></span>
                                             <hr>
                                             <span class="card-text d-flex align-items-center gap-2">Age: <?= $age ?></span>
                                             <span class="card-text d-flex align-items-center gap-2">Date d'embauche: <?= $hireDate ?></span>
-                                        </section>
-                                    </section>
-                                </section>
+                                        </div>
+                                    </div>
+                                </div>
                             </a>
                         <?php
                         }

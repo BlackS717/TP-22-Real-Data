@@ -15,15 +15,15 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#footer">Contact</a>
-                </li>
-                
-                <li class="nav-item">
                     <a class="nav-link" href="../pages/resultat_recherche.php?nom=&prenom=&ageMin=&ageMax=&departement=-1">Employees</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="../pages/recherche.php">Search</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#footer">Contact</a>
                 </li>
             </ul>
         </div>

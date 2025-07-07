@@ -92,7 +92,7 @@ function countAllMaleEmployee()
 
 function getName($employee)
 {
-    return $employee["first_name"] . " " . $employee["last_name"];
+    return $employee["last_name"] . " " . $employee["first_name"];
 }
 
 
@@ -336,6 +336,19 @@ function getAllPositionsInfo()
         . " JOIN "
         . $latest_salary
         . " ON " . $latest_title_alias . ".emp_no = " . $latest_salary_alias . ".emp_no GROUP BY " . $latest_title_alias . ".title ORDER BY nbr_employee DESC";
+    $request = make_request($sql);
+    return request_to_array($request);
+}
+
+function getLongestHeldPosition($idEmployee)
+{
+    $sql = "SELECT title, DATEDIFF(to_date, from_date) AS duration FROM titles t1
+            WHERE DATEDIFF(to_date, from_date) = (
+                SELECT MAX(DATEDIFF(to_date, from_date))
+                FROM titles t2
+                WHERE t2.emp_no = t1.emp_no
+            ) AND emp_no = '%s' ";
+    $sql = sprintf($sql, $idEmployee);
     $request = make_request($sql);
     return request_to_array($request);
 }

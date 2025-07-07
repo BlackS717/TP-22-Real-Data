@@ -1,14 +1,3 @@
-General layout: (ok)
-    _ 3 row: (ok)
-        _ header: (ok)
-
-        _ main: (ok)
-            _ 2 col: (ok)
-                _ info departement (ok)
-                _ info manager (ok)
-        _ footer (ok)
-
-
 Function:
     _ getAllDepartment (ok)
     _ getAllManager (ok)
@@ -29,13 +18,9 @@ Function:
     _ getAllPositions(ok)
     _ getAllPositionsInfo(ok)
     _ countEmployeeInPosition(ok)
-    _ getJobAverageSalary
-    _ countFemaleEmployeeInPosition
-    _ countMaleEmployeeInPosition
-    _ countFemaleEmployeesInDepartement
-    _ countMaleEmployeesInDepartement
-    _ getLongestHeldPosition
-
+    _ getJobAverageSalary(ok)
+    _ getLongestHeldPosition (ok)
+    _ 
 
 
 Task:
@@ -53,7 +38,13 @@ Task:
         - first 20 result(ok)
         - nav button(ok)
     _ show nbr employee in index (ok)
-    _ show job stats (wip)
-    _ show longest job in historique_employee
+    _ show stats (ok)
+    _ show longest job in fiche_employee (ok)
+    _ button to go to a page to change department (ok)
+    _ page to change department
+        - current department (ok)
+        - form with date, and list department excluding the current one (ok)
+    _     
+        
 
     

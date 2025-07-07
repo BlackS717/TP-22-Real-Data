@@ -30,7 +30,7 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
     <header class="bg-white shadow-sm container">
         <?php include("../inc/header.php"); ?>
     </header>
-    <main class="container">
+    <main class="container pt-2">
 
         <section class="row">
             <div class="col-lg-12">
@@ -42,17 +42,31 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
                             $img = $employee["gender"] == "M" ? "../assets/images/m_placeholder.jpg" : "../assets/images/f_placeholder.jpg";
                             $name = getName($employee);
                             $age = getAge($employee);
+
+                            $longestHeldPositions = getLongestHeldPosition($employee['emp_no']);
+
                             ?>
                             <article class="col gap-1 mb-3 list-employees d-inline-flex  justify-content-evenly align-items-center flex-wrap">
-                                <img src="<?= $img ?>" class="card-img-top img-fluid" style="max-height: 100px max-width :100px" alt="...">
-                                <div class="card " style="width: 18rem;min-width: 18rem;">
+                                <div class="card " style="width: 18rem;">
+                                    <img src="<?= $img ?>" class="card-img-top img-fluid" alt="...">
                                     <div class="card-body">
-                                        <div class="d-flex flex-column justify-content-between">
+                                        <div class="">
                                             <span class="card-title fw-bold"><?= $name ?></span>
                                             <hr>
-                                            <span class="card-text d-flex align-items-center gap-2">Age: <?= $age ?></span>
+                                            <span class="card-text align-items-center">Age: <?= $age ?></span>
                                             <hr>
-                                            <a href="department_change.php?idEmployee= <?= $idEmployee?>">Changer de Department</a>
+
+                                            <h6 class="card-text align-items-center">Longest Held Position:</h6>
+                                            <?php
+                                            foreach ($longestHeldPositions as $position) {
+                                            ?>
+                                                <p class="card-text align-items-center">- <?= $position['title'] ?></p>
+                                            <?php
+                                            }
+                                            ?>
+                                            <hr>
+
+                                            <span class="card-text"><a href="department_change.php?idEmployee= <?= $idEmployee ?>">Change Department</a></span>
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +94,7 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
                                         $start_date = $ficheSalaire["from_date"];
 
                                         $end_date = $terminated ? $ficheSalaire["to_date"] : "-";
-                                        
+
                                         $salary = $ficheSalaire["salary"];
 
                                     ?>

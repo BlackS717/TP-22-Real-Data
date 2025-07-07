@@ -29,35 +29,35 @@ $list_departements = getAllDepartement();
       <h2 class="row">Search</h2>
 
       <form action="./resultat_recherche.php" method="GET" class="form-group row">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-2">
           <label class="form-label" for="nom">Last name :</label>
           <input class="form-control" type="text" id="nom" name="nom" placeholder="Last name" />
         </div>
 
         <hr class="d-sm-block d-md-none">
 
-        <div class="col-md-6">
+        <div class="col-md-6 mb-2">
           <label class="form-label" for="Prenom">First name :</label>
           <input class="form-control" type="text" id="Prenom" name="prenom" placeholder="First name" />
         </div>
 
         <hr>
 
-        <div class="col-md-6">
+        <div class="col-md-6 mb-2">
           <label class="form-label" for="ageMin">Age min :</label>
           <input class="form-control" type="number" id="ageMin" name="ageMin" placeholder="Minimum age" min="0" />
         </div>
 
         <hr class="d-sm-block d-md-none">
 
-        <div class="col-md-6">
+        <div class="col-md-6 mb-2">
           <label class="form-label" for="ageMax">Age max :</label>
           <input class="form-control" type="number" id="ageMax" name="ageMax" placeholder="Maximum age" min="0"/>
         </div>
 
         <hr>
 
-        <div class="col-md-12">
+        <div class="col-md-12 mb-2">
           <label class="form-label" for="departement">Department :</label>
           <select class="form-control" name="departement" id="departement">
             <option value="-1">All</option>
