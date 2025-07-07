@@ -20,8 +20,8 @@ Function:
     _ getAge (ok)
     _ getEmployeeTitleRecord(ok)
     _ getEmployeeDepartmentRecord(ok)
-    _ getEmployeeSalaryRecord (ok) // salary history
-    _ getNombreEmployeDepartement (ok) // position history
+    _ getEmployeeSalaryRecord (ok)
+    _ getNombreEmployeDepartement (ok)
     _ rechercheEmployee(ok)
     _ getTotalMatchingValue(ok)
     _ getJobAverageSalary
