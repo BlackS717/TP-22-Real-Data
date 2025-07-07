@@ -31,33 +31,35 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
     <main class="container">
 
         <section class="row">
-            <section class="col-lg-12">
-                <section class="row mx-auto">
+            <div class="col-lg-12">
+                <div class="row">
 
-                    <section class="col-md-3 mb-3">
+                    <div class="col-md-12 col-lg-6">
+                        <div class="col-md-6 mx-auto">
+                            <?php
+                            $img = $employee["gender"] == "M" ? "../assets/images/m_placeholder.jpg" : "../assets/images/f_placeholder.jpg";
+                            $name = getName($employee);
+                            $age = getAge($employee);
+                            ?>
+                            <article class="col gap-1 mb-3 list-employees d-inline-flex  justify-content-evenly align-items-center flex-wrap">
+                                <img src="<?= $img ?>" class="card-img-top img-fluid" style="max-height: 100px max-width :100px" alt="...">
+                                <div class="card " style="width: 18rem;min-width: 18rem;">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column justify-content-between">
+                                            <span class="card-title fw-bold"><?= $name ?></span>
+                                            <hr>
+                                            <span class="card-text d-flex align-items-center gap-2">Age: <?= $age ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
 
-                        <?php
-                        $img = $employee["gender"] == "M" ? "../assets/images/m_placeholder.jpg" : "../assets/images/f_placeholder.jpg";
-                        $name = getName($employee);
-                        $age = getAge($employee);
-                        ?>
-                        <article class="col gap-1 mb-3 list-employees d-inline-flex  justify-content-evenly align-items-center flex-wrap">
-                            <img src="<?= $img ?>" class="card-img-top img-fluid" style="max-height: 100px max-width :100px" alt="...">
-                            <section class="card " style="width: 18rem;min-width: 18rem;">
-                                <section class="card-body">
-                                    <section class="d-flex flex-column justify-content-between">
-                                        <span class="card-title fw-bold"><?= $name ?></span>
-                                        <hr>
-                                        <span class="card-text d-flex align-items-center gap-2">Age: <?= $age ?></span>
-                                    </section>
-                                </section>
-                        </article>
-                    </section>
-
-                    <section class="col-md-9 mb-3">
-                        <section class="row">
-                            <div class="col-md-6 mb-3 ms-3 ">
-                                <table class="col gap-3  table table-primary table-striped table-hover align-middle caption-top "
+                    <div class="col-md-12 col-lg-6">
+                        <div class="row">
+                            <div class="col-12 ">
+                                <table class="col gap-3 table table-primary table-striped table-hover align-middle caption-top "
                                     style="max-height: fit-content;">
                                     <caption>Salaire de l'employee</caption>
                                     <tr>
@@ -80,7 +82,7 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
                                 </table>
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="col-12">
                                 <table class="col gap-3  table table-striped table-sm table-hover align-middle caption-top table-hover ">
                                     <caption>Departement de l'employee</caption>
                                     <tr>
@@ -100,11 +102,11 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
                                     ?>
                                 </table>
                             </div>
-                        </section>
-                    </section>
+                        </div>
+                    </div>
 
-                </section>
-            </section>
+                </div>
+            </div>
         </section>
     </main>
 

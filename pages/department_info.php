@@ -98,11 +98,17 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
                     <li class="page-item <?= $activePrevious ?>">
                         <a class="page-link" href="department_info.php?start=<?= $previous ?>&&id=<?= $idDepartement ?>">Previous</a>
                     </li>
+
+                    <li class="page-item disabled">
+                        <a href="" class="page-link"><?= $start + 1 ?> - <?= $start + $employeeCount ?></a>
+                    </li>
+
                     <li class="page-item <?= $activeNext ?>">
                         <a class="page-link" href="department_info.php?start=<?= $next ?>&&id=<?= $idDepartement ?>">Next</a>
                     </li>
                 </ul>
             </nav>
+            
         </section>
     </main>
 
