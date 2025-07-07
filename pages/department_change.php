@@ -34,7 +34,7 @@ $current_department = getEmployeeDepartmentRecord($idEmployee)[0]['dept_name'];
       <div class="row">
         <div class="col-md-4">
           <div class="card">
-            <img src="../assets/images/<?=strtolower($employee['gender'])?>_placeholder.jpg" class="card-img-top img-fluid" alt="...">
+            <img src="../assets/images/<?= strtolower($employee['gender']) ?>_placeholder.jpg" class="card-img-top img-fluid" alt="...">
             <div class="card-body">
               <span class="card-title fw-bold"><?= $name ?></span>
               <hr>
