@@ -57,7 +57,7 @@ function getEmployee($idEmployee)
 }
 
 function getEmployeeTitleRecord($idEmployee){
-    $sql = "SELECT * from titles JOIN employees ON employees.emp_no = titles.emp_no WHERE titles.emp_no = '%s'";
+    $sql = "SELECT * FROM titles JOIN employees ON employees.emp_no = titles.emp_no WHERE titles.emp_no = '%s'";
 
     $sql = sprintf($sql, $idEmployee);
     $req = make_request($sql);
@@ -65,7 +65,7 @@ function getEmployeeTitleRecord($idEmployee){
 }
 
 function countAllEmployee(){
-    $sql = "SELECT COUNT(*) as total from employees";
+    $sql = "SELECT COUNT(*) as total FROM employees";
     $req = mysqli_query(dbconnect(), $sql);
     $res = mysqli_fetch_assoc($req);
     mysqli_free_result($req);
@@ -281,7 +281,7 @@ function getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $departement)
 function changeEmployeeDepartment($idEmployee,$idNewDep,$newDate)
 {
     $ancienDep = getEmployeeDepartmentRecord($idEmployee)[0];
-    $sql = "update dept_emp set to_date = '%s' where emp_no = '%s'";
+    $sql = "update dept_emp set to_date = '%s' WHERE emp_no = '%s'";
     $sql = sprintf($sql,$idEmployee,$newDate);
 
     $sql1 = "insert into dept_emp values ('%s','%s','%s','9999-01-01')";
