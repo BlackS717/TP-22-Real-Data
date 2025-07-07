@@ -19,6 +19,8 @@ require("../inc/function.php");
     </header>
     <main class="container">
         <h1>Stats</h1>
+        <p class="bg-warning">Créer un tableau contenant le nombre d'employé (homme et femme ), et le
+salaire moyen pour chaque emploi</p>
     </main>
 
     <footer class="bg-white shadow-sm pt-2" id="footer">
