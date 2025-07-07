@@ -9,6 +9,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../pages/index.php" aria-expanded="true">Home</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../pages/department_stats.php">Statistics</a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="#footer">Contact</a>
                 </li>

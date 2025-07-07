@@ -1,5 +1,11 @@
 <?php
 require("../inc/function.php");
+$idDepartment = isset($_GET['id_department']) ? $_GET['id_department'] : "-1";
+
+// idDepartment -1 => all department
+// else specific department stats
+// for now show all department no matter what
+
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +32,7 @@ require("../inc/function.php");
         <p class="lead">An overview of workforce composition and salary insights.</p>
 
         <div class="row">
-            <h2 class="h4 mb-3">Gender Distribution</h2>
+            <h4 class="">Gender Distribution</h4>
             <table class="table table-striped table-bordered">
                 <caption>Breakdown of employees by gender</caption>
                 <thead>
@@ -43,7 +49,7 @@ require("../inc/function.php");
         </div>
 
         <div class="row">
-            <h2 class="h4 mb-3">Average Salary by Position</h2>
+            <h4 class="">Average Salary by Position</h4>
             <table class="table table-striped table-bordered">
                 <caption>Average salary data for each position</caption>
                 <thead>
@@ -60,7 +66,7 @@ require("../inc/function.php");
         </div>
 
         <div class="row">
-            <h2 class="h4 mb-3">Employees per Department</h2>
+            <h4 class="">Employees per Department</h4>
             <table class="table table-striped table-bordered">
                 <caption>Number of employees in each department</caption>
                 <thead>
