@@ -6,8 +6,9 @@ $idDepartment = isset($_GET['id_department']) ? $_GET['id_department'] : "-1";
 // else specific department stats
 // for now show all department no matter what
 
-$femaleEmployeeCount = 0;
-$maleEmployeeCount = 0;
+$femaleEmployeeCount = countAllFemaleEmployee();
+$maleEmployeeCount = countAllMaleEmployee();
+$totalEmployeeCount = countAllEmployee();
 
 
 
@@ -57,6 +58,11 @@ $maleEmployeeCount = 0;
                         <td>Female</td>
                         <td><?= $femaleEmployeeCount ?></td>
                         <td><?= convertToPercentage($femaleEmployeeCount) ?> %</td>
+                    </tr>
+                    <tr class="table-primary">
+                        <td>Total</td>
+                        <td><?= $totalEmployeeCount ?></td>
+                        <td><?= convertToPercentage($totalEmployeeCount) ?> %</td>
                     </tr>
                 </tbody>
             </table>
