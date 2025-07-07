@@ -18,7 +18,7 @@
             <div class="col-sm-6">
                 <p class="fw-bold figure-caption text-black row">Navigations</p>
                 <div class="row">
-                    <ul class="d-flex flex-column list-unstyled">
+                    <ul class="d-flex flex-column list-unstyled gap-2">
                         <li class="figure-caption text-black"><a href="../pages/index.php">Home</a></li>
 
                         <li class="figure-caption text-black"><a href="../pages/recherche.php">Search</a></li>
