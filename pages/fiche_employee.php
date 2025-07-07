@@ -76,7 +76,9 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
                                         $terminated = $ficheSalaire["to_date"] != "9999-01-01";
 
                                         $start_date = $ficheSalaire["from_date"];
+
                                         $end_date = $terminated ? $ficheSalaire["to_date"] : "-";
+                                        
                                         $salary = $ficheSalaire["salary"];
 
                                     ?>

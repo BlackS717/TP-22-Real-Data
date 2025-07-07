@@ -53,10 +53,12 @@ $departements = getAllDepartement();
                                         <span class="card-text d-flex align-items-center gap-2">
                                             <a href="department_info.php?id=<?= $idDepartement ?>">
                                                 <img src="../assets/images/person-circle.svg" class="img-fluid" style="width: 20px" alt="">
+                                                <span>list employees</span>
                                             </a>
 
-                                            <a href="department_stats.php?id_department=<?= $idDepartement ?>">
+                                            <a href="fiche_department.php?id_department=<?= $idDepartement ?>">
                                                 <img src="../assets/images/bar-chart-fill.svg" alt="" class="img-fluid" style="width: 20px">
+                                                <span>Statistics</span>
                                             </a>
                                         </span>
                                     </section>

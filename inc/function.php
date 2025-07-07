@@ -1,77 +1,74 @@
 <?php
 require("connection.php");
 
+function make_request($request){
+    return mysqli_query(dbconnect(), $request);
+}
+
+function request_to_array($request){
+    $result = array();
+    while($r = mysqli_fetch_assoc($request)){
+        $result[] = $r;
+    }
+    mysqli_free_result($request);
+    return $result;
+}
+
 function getAllDepartement()
 {
-    $sql = " select * from departments ";
-    $req = mysqli_query(dbconnect(), $sql);
-    $res = array();
-    while ($dep = mysqli_fetch_assoc($req)) {
-        $res[] = $dep;
-    }
-    mysqli_free_result($req);
-    return $res;
+    $sql = " SELECT * FROM departments ";
+    $req = make_request($sql);
+    return request_to_array($req);
 }
 
 function getAllManagerEnCours($idDepartment)
 {
-    $sql = " select * from dept_manager  where dept_no = '%s' ";
+    $sql = " SELECT * FROM dept_manager  WHERE dept_no = '%s' ";
     $sql = sprintf($sql, $idDepartment);
-    $req = mysqli_query(dbconnect(), $sql);
+    $req = make_request($sql);
+    return request_to_array($req);
 
-    while ($man = mysqli_fetch_assoc($req)) {
-        $res = $man;
-    }
-
-    mysqli_free_result($req);
-    return $res;
 }
 
 function getManagerEnCours($idDepartment)
 {
-    $sql = " select * from dept_manager  where dept_no = '%s' order by from_date desc limit 1";
+    $sql = " SELECT * FROM dept_manager  WHERE dept_no = '%s' ORDER BY from_date DESC LIMIT 1";
     $sql = sprintf($sql, $idDepartment);
-    $req = mysqli_query(dbconnect(), $sql);
-
-    while ($man = mysqli_fetch_assoc($req)) {
-        $res = $man;
-    }
-
+    $req = make_request($sql);
+    $res = mysqli_fetch_assoc($req);    
     mysqli_free_result($req);
     return $res;
 }
 
 function getEmployee($idEmployee)
 {
-    $sql = "select * from employees where emp_no = '%s'";
+    $sql = "SELECT * FROM employees WHERE emp_no = '%s'";
     $sql = sprintf($sql, $idEmployee);
-    $req = mysqli_query(dbconnect(), $sql);
+    $req = make_request($sql);
     $res = mysqli_fetch_assoc($req);
     mysqli_free_result($req);
     return $res;
 }
 
-function getEmployeeTitleRecord($idEmployee)
-{
+function getEmployeeTitleRecord($idEmployee){
     $sql = "SELECT * from titles JOIN employees ON employees.emp_no = titles.emp_no WHERE titles.emp_no = '%s'";
 
     $sql = sprintf($sql, $idEmployee);
-    $req = mysqli_query(dbconnect(), $sql);
-    $res = array();
-    while ($title = mysqli_fetch_assoc($req)) {
-        $res[] = $title;
-    }
-    mysqli_free_result($req);
-    return $res;
+    $req = make_request($sql);
+    return request_to_array($req);
 }
 
-function countAllEmployee()
-{
+function countAllEmployee(){
     $sql = "SELECT COUNT(*) as total from employees";
     $req = mysqli_query(dbconnect(), $sql);
     $res = mysqli_fetch_assoc($req);
     mysqli_free_result($req);
     return $res['total'];
+}
+
+function countAllFemaleEmployee(){
+    $sql = "SELECT * FROM employees WHERE gender = 'F'";
+    $req = make_request($sql);
 }
 
 function getName($employee)
@@ -80,27 +77,21 @@ function getName($employee)
 }
 
 
-
 function getDepartmentEmployee($idDepartment, $start, $nbr)
 {
     $sql = "SELECT employees.* FROM employees 
                 JOIN dept_emp ON employees.emp_no = dept_emp.emp_no 
                 JOIN departments ON dept_emp.dept_no = departments.dept_no WHERE dept_emp.dept_no = '%s' ORDER BY employees.hire_date DESC LIMIT %s,%s";
     $sql = sprintf($sql, $idDepartment, $start, $nbr);
-    $req = mysqli_query(dbconnect(), $sql);
-    $res = array();
-    while ($emp = mysqli_fetch_assoc($req)) {
-        $res[] = $emp;
-    }
-    mysqli_free_result($req);
-    return $res;
+    $req = make_request($sql);
+    return request_to_array($req);
 }
 
 function getDepartment($idDepartment)
 {
-    $sql = "select * from departments where dept_no = '%s'";
+    $sql = "SELECT * FROM departments WHERE dept_no = '%s'";
     $sql = sprintf($sql, $idDepartment);
-    $req = mysqli_query(dbconnect(), $sql);
+    $req = make_request($sql);
     $res = mysqli_fetch_assoc($req);
     mysqli_free_result($req);
     return $res;
@@ -108,9 +99,9 @@ function getDepartment($idDepartment)
 
 function getCountDepartmentEmployee($idDepartment)
 {
-    $sql = "select count(*) as nbr from dept_emp where dept_no = '%s'";
+    $sql = "SELECT count(*) as nbr FROM dept_emp WHERE dept_no = '%s'";
     $sql = sprintf($sql, $idDepartment);
-    $req = mysqli_query(dbconnect(), $sql);
+    $req = make_request($sql);
     $res = mysqli_fetch_assoc($req);
     mysqli_free_result($req);
     return $res["nbr"];
@@ -126,7 +117,7 @@ function getDateDiff($date)
     $query = "SELECT TIMESTAMPDIFF(YEAR, '%s', NOW()) AS diffYear";
     $query = sprintf($query, $date);
 
-    $result = mysqli_query(dbconnect(), $query);
+    $result = make_request($query);
     $data = mysqli_fetch_assoc($result);
     mysqli_free_result($result);
 
@@ -135,36 +126,26 @@ function getDateDiff($date)
 
 function getEmployeeSalaryRecord($idEmployee)
 {
-    $sql = "select salary,from_date,to_date from salaries 
-            where emp_no = '%s' order by from_date desc";
+    $sql = "SELECT salary,from_date,to_date FROM salaries 
+            WHERE emp_no = '%s' ORDER BY from_date desc";
     $sql = sprintf($sql, $idEmployee);
-    $sql = mysqli_query(dbconnect(), $sql);
-    $req = array();
-    while ($emp = mysqli_fetch_assoc($sql)) {
-        $req[] = $emp;
-    }
-    mysqli_free_result($sql);
-    return $req;
+    $sql = make_request($sql);
+    return request_to_array($sql);
 }
 
 function getEmployeeDepartmentRecord($idEmployee)
 {
     $sql = "SELECT dept_emp.from_date, dept_emp.to_date, dept_emp.from_date, dept_emp.dept_no, departments.dept_name FROM dept_emp JOIN departments ON dept_emp.dept_no = departments.dept_no WHERE dept_emp.emp_no = '%s' ORDER BY dept_emp.from_date DESC";
     $sql = sprintf($sql, $idEmployee);
-    $sql = mysqli_query(dbconnect(), $sql);
-    $req = array();
-    while ($emp = mysqli_fetch_assoc($sql)) {
-        $req[] = $emp;
-    }
-    mysqli_free_result($sql);
-    return $req;
+    $sql = make_request($sql);
+    return request_to_array($sql);
 }
 
 function getNombreSalaire($idEmployee)
 {
-    $sql = "select count(*) as nbr from salaries where emp_no='%s'";
+    $sql = "SELECT count(*) as nbr FROM salaries WHERE emp_no='%s'";
     $sql = sprintf($sql, $idEmployee);
-    $sql = mysqli_query(dbconnect(), $sql);
+    $sql = make_request($sql);
     $req = mysqli_fetch_assoc($sql);
     mysqli_free_result($sql);
     return $req["nbr"];
@@ -172,9 +153,9 @@ function getNombreSalaire($idEmployee)
 
 function getNombreEmployeDepartement($idEmployee)
 {
-    $sql = "select count(*) as nbr from titles where emp_no='%s'";
+    $sql = "SELECT count(*) as nbr FROM titles WHERE emp_no='%s'";
     $sql = sprintf($sql, $idEmployee);
-    $sql = mysqli_query(dbconnect(), $sql);
+    $sql = make_request($sql);
     $req = mysqli_fetch_assoc($sql);
     mysqli_free_result($sql);
     return $req["nbr"];
@@ -222,19 +203,14 @@ function rechercheEmployee($nom, $prenom, $ageMin, $ageMax, $departement, $offse
         $sql .= implode(" AND ", $conditions);
     }
 
-    $limit = " LIMIT %s, %s ";
-    $limit = sprintf($limit, $offset, $resultNbr);
-    $sql .= $limit;
+    $LIMIT = " LIMIT %s, %s ";
+    $LIMIT = sprintf($LIMIT, $offset, $resultNbr);
+    $sql .= $LIMIT;
 
     // return $sql;
 
-    $sql = mysqli_query(dbconnect(), $sql);
-    $res = array();
-    while ($val = mysqli_fetch_assoc($sql)) {
-        $res[] = $val;
-    }
-    mysqli_free_result($sql);
-    return $res;
+    $sql = make_request($sql);
+    return request_to_array($sql);
 }
 
 function getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $departement)
@@ -279,7 +255,7 @@ function getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $departement)
         $sql .= implode(" AND ", $conditions);
     }
 
-    $result = mysqli_query(dbconnect(), $sql);
+    $result = make_request($sql);
 
     if (!$result) {
         return 0;
@@ -299,4 +275,10 @@ function changeEmployeeDepartment($idEmployee,$idNewDep,$newDate)
 
     $sql1 = "insert into dept_emp values ('%s','%s','%s','9999-01-01')";
     $sql1 = sprintf($sql1,$idEmployee,$idNewDep,$newDate);
+}
+
+function convertToPercentage($employeeCount){
+    $totalEmployeeNumber = countAllEmployee();
+    $percentage = ($employeeCount * 100) / $totalEmployeeNumber;
+    return $percentage ;
 }
