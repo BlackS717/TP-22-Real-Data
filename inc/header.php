@@ -11,7 +11,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="../pages/department_stats.php">Statistics</a>
+                    <a class="nav-link" href="../pages/statistics.php">Statistics</a>
                 </li>
 
                 <li class="nav-item">

@@ -6,6 +6,11 @@ $idDepartment = isset($_GET['id_department']) ? $_GET['id_department'] : "-1";
 // else specific department stats
 // for now show all department no matter what
 
+$femaleEmployeeCount = 0;
+$maleEmployeeCount = 0;
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +48,16 @@ $idDepartment = isset($_GET['id_department']) ? $_GET['id_department'] : "-1";
                     </tr>
                 </thead>
                 <tbody>
-
+                    <tr>
+                        <td>Male</td>
+                        <td><?= $maleEmployeeCount ?></td>
+                        <td><?= convertToPercentage($maleEmployeeCount) ?> %</td>
+                    </tr>
+                    <tr>
+                        <td>Female</td>
+                        <td><?= $femaleEmployeeCount ?></td>
+                        <td><?= convertToPercentage($femaleEmployeeCount) ?> %</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
