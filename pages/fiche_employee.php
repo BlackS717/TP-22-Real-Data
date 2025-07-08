@@ -8,10 +8,16 @@ if (!isset($_GET['employee'])) {
 $idEmployee = $_GET["employee"];
 
 $employee = getEmployee($idEmployee);
+$currentDepartment = getLatestDepartment($idEmployee);
+
+$inDepartment = $currentDepartment['to_date'] == '9999-01-01';
 
 $ficheDepartments = getEmployeeDepartmentRecord($idEmployee);
 $ficheSalaires = getEmployeeSalaryRecord($idEmployee);
 $fichePositions = getEmployeeTitleRecord($idEmployee);
+
+$currentDepartmentInfo = getDepartment($currentDepartment['dept_no']);
+$currentDepartmentName = $inDepartment ? $currentDepartmentInfo['dept_name'] : "No Department";
 
 ?>
 
@@ -41,9 +47,17 @@ $fichePositions = getEmployeeTitleRecord($idEmployee);
                                 <p class="alert alert-danger">
                                     Failed to Update the Department because the date provided is invalid !!!
                                 </p>
-                            <?php } else { ?>
+                            <?php } elseif ($_GET['error'] == 1) { ?>
                                 <p class="alert alert-success">
                                     Department Updated Successfully !!!
+                                </p>
+                            <?php } elseif ($_GET['error'] == -1) { ?>
+                                <p class="alert alert-danger">
+                                    Failed to Assign Manager Role because the date provided is invalid !!!
+                                </p>
+                            <?php } elseif ($_GET['error'] == 2) { ?>
+                                <p class="alert alert-danger">
+                                    Failed to Assign Manager Role because the employee is currently not assigned to any Department !!!
                                 </p>
                             <?php } ?>
                         </div>
@@ -63,7 +77,11 @@ $fichePositions = getEmployeeTitleRecord($idEmployee);
                                     <img src="<?= $img ?>" class="card-img-top img-fluid" alt="...">
                                     <div class="card-body">
                                         <div class="">
-                                            <span class="card-title fw-bold"><?= $name ?></span>
+                                            <span class="card-title fw-bold"><?= $name ?> </span>
+                                            <hr>
+                                            <h6 class="card-text align-items-center">Current Department:</h6>
+                                            <p class="card-text align-items-center">- <?= $currentDepartmentName ?></p>
+
                                             <hr>
                                             <span class="card-text align-items-center">Age: <?= $age ?></span>
                                             <hr>
@@ -79,6 +97,8 @@ $fichePositions = getEmployeeTitleRecord($idEmployee);
                                             <hr>
 
                                             <span class="card-text"><a href="department_change.php?idEmployee=<?= $idEmployee ?>">Change Department</a></span>
+                                            <hr>
+                                            <p class="btn btn-primary"><a href="assign_manager.php?idEmployee=<?= $idEmployee ?>" class="text-white">Assign Manager Role</a></p>
                                         </div>
                                     </div>
                                 </div>

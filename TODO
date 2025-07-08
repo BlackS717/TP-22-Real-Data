@@ -48,6 +48,11 @@ Task:
         - show an error message if invalid (ok)
 
     _ button to be a manager in fiche employee
+        - adding the button (ok)
         - validate data
-        - update dept_manager if valid 
-        - show an error message if invalid
+            - make a form to choose a starting date
+            - make sure the date is after the starting date of the current manager
+            - update dept_manager if valid 
+        - show status message
+            - error message if invalid date
+            - success message if valid date and successfully updated
