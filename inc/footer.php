@@ -18,10 +18,26 @@
             <div class="col-sm-6">
                 <p class="fw-bold figure-caption text-black row">Navigations</p>
                 <div class="row">
-                    <ul class="d-flex flex-column list-unstyled gap-2">
-                        <li class="figure-caption text-black"><a href="../pages/index.php">Home</a></li>
+                    <ul class="col-md-6 d-flex flex-column list-unstyled gap-2">
+                        <li class="figure-caption text-black">
+                            <a href="../pages/index.php">Home</a>
+                        </li>
 
-                        <li class="figure-caption text-black"><a href="../pages/recherche.php">Search</a></li>
+                        <li class="figure-caption text-black">
+                            <a href="../pages/recherche.php">Search</a>
+                        </li>
+
+                    </ul>
+                    <ul class="col-md-6 d-flex flex-column list-unstyled gap-2">
+
+                        <li class="figure-caption text-black">
+                            <a href="../pages/statistics.php">Statistics</a>
+                        </li>
+
+                        <li class="figure-caption text-black">
+                            <a href="../pages/resultat_recherche.php?nom=&prenom=&ageMin=&ageMax=&departement=-1">Employees</a>
+                        </li>
+
                     </ul>
                 </div>
             </div>

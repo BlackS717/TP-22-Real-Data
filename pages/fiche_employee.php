@@ -1,7 +1,7 @@
 <?php
 require("../inc/function.php");
 
-if(!isset($_GET['employee'])){
+if (!isset($_GET['employee'])) {
     header("Location: index.php");
 }
 
@@ -35,9 +35,21 @@ $fichePositions = getEmployeeTitleRecord($idEmployee);
         <section class="row">
             <div class="col-lg-12">
                 <div class="row">
-
-                    <div class="col-md-12 col-lg-6">
-                        <div class="col-md-6 mx-auto">
+                    <?php if (isset($_GET['error'])) { ?>
+                        <div class="col-md-12 col-lg-12">
+                            <?php if ($_GET['error'] == 0) { ?>
+                                <p class="alert alert-danger">
+                                    Failed to Update the Department because the date provided is invalid !!!
+                                </p>
+                            <?php } else { ?>
+                                <p class="alert alert-success">
+                                    Department Updated Successfully !!!
+                                </p>
+                            <?php } ?>
+                        </div>
+                    <?php } ?>
+                    <div class="col-md-12 col-lg-4">
+                        <div class="col-md-6 mx-sm-auto mx-lg-0">
                             <?php
                             $img = $employee["gender"] == "M" ? "../assets/images/m_placeholder.jpg" : "../assets/images/f_placeholder.jpg";
                             $name = getName($employee);
@@ -74,7 +86,7 @@ $fichePositions = getEmployeeTitleRecord($idEmployee);
                         </div>
                     </div>
 
-                    <div class="col-md-12 col-lg-6">
+                    <div class="col-md-12 col-lg-8">
                         <div class="row">
                             <div class="col-12 ">
                                 <table class="col gap-3 table table-primary table-striped table-hover align-middle caption-top "

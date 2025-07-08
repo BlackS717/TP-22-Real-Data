@@ -19,6 +19,14 @@ if ($current_department == null) {
   $current_department['dept_name'] = "None";
   $current_department['dept_no'] = "";
 }
+
+$departementInfo = getLatestDepartment($idEmployee);
+
+if($current_department['dept_name'] != "None"){
+  $additionalInfo = $departementInfo['from_date'];
+} else {
+  $additionalInfo = $departementInfo['to_date'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,11 +46,6 @@ if ($current_department == null) {
 
   <main>
     <div class="container mt-3">
-
-      <!-- <p class="alert alert-info"> -->
-        <?php //var_dump($current_department); ?>
-      <!-- </p> -->
-
       <div class="row">
         <div class="col-md-4">
           <div class="card">
@@ -53,7 +56,7 @@ if ($current_department == null) {
               <span class="card-text">Age: <?= $age ?></span>
               <hr>
               <p class="card-text">Current Department</p>
-              <p class="card-text">- <?= $current_department['dept_name'] ?></p>
+              <p class="card-text">- <?= $current_department['dept_name'] ?> : <?= $additionalInfo?></p>
             </div>
           </div>
         </div>

@@ -412,7 +412,7 @@ function changeEmployeeDepartment($idEmployee, $idNewDep, $newDate)
     }
 
     if (!$isValidDate) {
-        return "The date provided is invalid !!!";
+        return 0;
     }
 
     $sql = "INSERT INTO dept_emp VALUES ('%s','%s','%s','9999-01-01')";

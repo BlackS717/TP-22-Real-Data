@@ -8,7 +8,8 @@ $id_employee = $_POST['emp_no'];
 
 $request = changeEmployeeDepartment($id_employee, $id_departement, $date);
 // var_dump( $request );
-header("Location: ../pages/fiche_employee.php");
+$location = "../pages/fiche_employee.php?employee=".$id_employee."&&error=".$request;
+header("Location: ". $location);
 
 
 

@@ -20,8 +20,6 @@ Function:
     _ countEmployeeInPosition(ok)
     _ getJobAverageSalary(ok)
     _ getLongestHeldPosition (ok)
-    _ 
-
 
 Task:
     _ Show all departement (ok)
@@ -45,13 +43,11 @@ Task:
         - current department (ok)
         - form with date, and list department excluding the current one (ok)
     _ form validation page
-        - start date must be higher or equals the current department start date
-        - update dept_emp with the new value if valid
-        - show an error message if invalid
+        - start date must be higher or equals the current department start date (ok)
+        - update dept_emp with the new value if valid (ok)
+        - show an error message if invalid (ok)
+
     _ button to be a manager in fiche employee
         - validate data
-        - update dept_manager if valid
+        - update dept_manager if valid 
         - show an error message if invalid
-        
-
-    
