@@ -1,7 +1,11 @@
 <?php
 require("../inc/function.php");
-$idDepartement = isset($_GET["id"]) ? $_GET["id"] : 0;
 
+if(!isset($_GET["id"])){
+    header("Location: index.php");
+}
+
+$idDepartement = $_GET["id"];
 $start = isset($_GET["start"]) ? $_GET["start"] : 0;
 $nbrToShow = 20;
 

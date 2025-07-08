@@ -121,16 +121,28 @@ function countAllEmployee()
     return $res['total'];
 }
 
-function countAllFemaleEmployee()
+function countAllEmployeeWithAssignedDepartmentWithGender($gender)
 {
-    $sql = "SELECT COUNT(*) as nbr FROM employees WHERE gender = 'F'";
+    $gender = strtoupper($gender);
+    if($gender != 'F' && $gender != 'M'){
+        return 0; 
+    }
+
+    $sql = "SELECT COUNT(DISTINCT de.emp_no) as nbr FROM dept_emp de JOIN employees e ON e.emp_no = de.emp_no WHERE e.gender = '%s' AND de.to_date = '9999-01-01'";
+    $sql = sprintf($sql, $gender);
     $req = make_request($sql);
     return fetch_result($req)['nbr'];
 }
 
-function countAllMaleEmployee()
+function countAllEmployeeWithGender($gender)
 {
-    $sql = "SELECT COUNT(*) as nbr FROM employees WHERE gender = 'M'";
+    $gender = strtoupper($gender);
+    if($gender != 'F' && $gender != 'M'){
+        return 0; 
+    }
+
+    $sql = "SELECT COUNT(*) as nbr FROM employees WHERE gender = '%s'";
+    $sql = sprintf($sql, $gender);
     $req = make_request($sql);
     return fetch_result($req)['nbr'];
 }
@@ -369,26 +381,49 @@ function leaveDepartment($idEmployee, $date)
 {
     $sql = "UPDATE dept_emp SET to_date = '%s' WHERE emp_no = '%s' AND to_date = '9999-01-01' AND from_date < '%s'";
     $sql = sprintf($sql, $date, $idEmployee, $date);
+    make_request($sql);
+    $result = mysqli_affected_rows(dbconnect()) > 0;
+    return $result;
+}
+
+function getLatestDepartment($idEmployee){
+    $sql = "SELECT * FROM dept_emp WHERE emp_no = '%s' ORDER BY to_date DESC LIMIT 1";
+    $sql = sprintf($sql, $idEmployee);
+    $request = make_request($sql);
+    $result = fetch_result($request);
+    return $result;
 }
 
 
 function changeEmployeeDepartment($idEmployee, $idNewDep, $newDate)
 {
     $inDepartment = isInADepartment($idEmployee);
-    return $inDepartment;
+    $isValidDate = false;
+
     if ($inDepartment) {
-        if (leaveDepartment($idEmployee, $newDate)) {
-        }
+        $isValidDate = leaveDepartment($idEmployee, $newDate); 
     } else {
+        // get the latest department to_date and use it as a reference instead
+        $latestDepartment = getLatestDepartment($idEmployee);
+        $sql = "SELECT '%s' < '%s' AS valid_date";
+        $sql = sprintf($sql, $latestDepartment['to_date'], $newDate);
+        $request = make_request($sql);
+        $isValidDate = fetch_result($request)['valid_date'] == 0 ? false : true;
     }
 
-    $sql1 = "insert into dept_emp values ('%s','%s','%s','9999-01-01')";
-    $sql1 = sprintf($sql1, $idEmployee, $idNewDep, $newDate);
+    if (!$isValidDate) {
+        return "The date provided is invalid !!!";
+    }
+
+    $sql = "INSERT INTO dept_emp VALUES ('%s','%s','%s','9999-01-01')";
+    $sql = sprintf($sql, $idEmployee, $idNewDep, $newDate);
+    $request = make_request($sql);
+    return $request;
 }
 
-function convertToPercentage($employeeCount, $decimal)
+function convertToPercentage($employeeCount, $decimal, $all)
 {
-    $totalEmployeeNumber = countAllEmployee();
+    $totalEmployeeNumber = $all ? countAllEmployee() : countAllEmployeeWithAssignedDepartment();
     $percentage = ($employeeCount * 100) / $totalEmployeeNumber;
     return round($percentage, $decimal);
 }
@@ -408,7 +443,7 @@ function countEmployeeInPosition($position)
     return fetch_result($request)['nbr'];
 }
 
-function getAllPositionsInfo()
+function getAllPositionsInfo($currentOnly)
 {
     $latest_title_alias = "t_latest";
     $latest_title = "   ( SELECT t1.emp_no, t1.title FROM titles t1 JOIN 
@@ -427,7 +462,14 @@ function getAllPositionsInfo()
     $sql = "SELECT " . $latest_title_alias . ".title, COUNT(DISTINCT " . $latest_title_alias . ".emp_no) AS nbr_employee, AVG(" . $latest_salary_alias . ".salary) AS avg_salary FROM" . $latest_title
         . " JOIN "
         . $latest_salary
-        . " ON " . $latest_title_alias . ".emp_no = " . $latest_salary_alias . ".emp_no GROUP BY " . $latest_title_alias . ".title ORDER BY nbr_employee DESC";
+        . " ON " . $latest_title_alias . ".emp_no = " . $latest_salary_alias . ".emp_no ";
+
+    if($currentOnly){
+        $sql .= " JOIN dept_emp de ON de.emp_no = ".$latest_title_alias.".emp_no  WHERE de.to_date = '9999-01-01' ";
+    }
+        
+    $group = "GROUP BY " . $latest_title_alias . ".title ORDER BY nbr_employee DESC";
+    $sql .= $group;
     $request = make_request($sql);
     return request_to_array($request);
 }

@@ -2,7 +2,11 @@
 session_start();
 require("../inc/function.php");
 
-$idEmployee = isset($_GET["idEmployee"]) ? $_GET["idEmployee"] : 0;
+if(!isset($_GET["idEmployee"])){
+  header("Location: index.php");
+}
+
+$idEmployee = $_GET["idEmployee"];
 
 $employee = getEmployee($idEmployee);
 $age = getAge($employee);

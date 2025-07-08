@@ -1,7 +1,11 @@
 <?php
 require("../inc/function.php");
 
-$idEmployee = isset($_GET["employee"]) ? $_GET["employee"] : 0;
+if(!isset($_GET['employee'])){
+    header("Location: index.php");
+}
+
+$idEmployee = $_GET["employee"];
 
 $employee = getEmployee($idEmployee);
 
@@ -62,7 +66,7 @@ $fichePositions = getEmployeeTitleRecord($idEmployee);
                                             ?>
                                             <hr>
 
-                                            <span class="card-text"><a href="department_change.php?idEmployee= <?= $idEmployee ?>">Change Department</a></span>
+                                            <span class="card-text"><a href="department_change.php?idEmployee=<?= $idEmployee ?>">Change Department</a></span>
                                         </div>
                                     </div>
                                 </div>
