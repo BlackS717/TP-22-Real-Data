@@ -6,5 +6,13 @@ GROUP BY e.emp_no, e.first_name, e.last_name
 HAVING COUNT(DISTINCT de.dept_no) > 1 
 LIMIT 10;
 
--- 
+-- get employee with no department assigned to them
 
+SELECT e.*
+FROM employees e
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM dept_emp de
+    WHERE de.emp_no = e.emp_no AND de.to_date = '9999-01-01'
+)
+LIMIT 10;

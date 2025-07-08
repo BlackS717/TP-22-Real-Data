@@ -9,8 +9,12 @@ $age = getAge($employee);
 $name = getName($employee);
 
 $list_departments = getAllDepartement();
-$current_department = getEmployeeDepartmentRecord($idEmployee)[0]['dept_name'];
-
+$current_department = getCurrentDepartment($idEmployee);
+if ($current_department == null) {
+  $current_department = array();
+  $current_department['dept_name'] = "None";
+  $current_department['dept_no'] = "";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,6 +35,10 @@ $current_department = getEmployeeDepartmentRecord($idEmployee)[0]['dept_name'];
   <main>
     <div class="container mt-3">
 
+      <!-- <p class="alert alert-info"> -->
+        <?php //var_dump($current_department); ?>
+      <!-- </p> -->
+
       <div class="row">
         <div class="col-md-4">
           <div class="card">
@@ -41,14 +49,16 @@ $current_department = getEmployeeDepartmentRecord($idEmployee)[0]['dept_name'];
               <span class="card-text">Age: <?= $age ?></span>
               <hr>
               <p class="card-text">Current Department</p>
-              <p class="card-text">- <?= $current_department ?></p>
+              <p class="card-text">- <?= $current_department['dept_name'] ?></p>
             </div>
           </div>
         </div>
         <div class="col-md-8">
           <hr class="d-sm-block d-md-none">
           <h2 class="text-danger">Department Change Form</h2>
-          <form action="../traitement/traitement_changement_department.php?$idemployee= <?= $idEmployee ?>" method="GET" class="form-group">
+          <form action="../traitement/traitement_changement_department.php" method="POST" class="form-group">
+
+            <input class="form-control" type="hidden" name="emp_no" value="<?= $idEmployee ?>" />
 
             <label class="form-label" for="date">Start Date :</label>
             <input class="form-control" type="date" id="date" name="from_date" placeholder="Start Date" required />
@@ -56,11 +66,11 @@ $current_department = getEmployeeDepartmentRecord($idEmployee)[0]['dept_name'];
             <hr>
 
             <label class="form-label" for="departement">Select Department :</label>
-            <select class="form-control" name="new_departement" id="departement" required>
+            <select class="form-control" name="dept_no" id="departement">
               <?php
               foreach ($list_departments as $departement) {
 
-                if ($departement['dept_name'] == $current_department) {
+                if ($departement['dept_name'] == $current_department['dept_name']) {
                   continue;
                 }
 

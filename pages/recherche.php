@@ -52,24 +52,30 @@ $list_departements = getAllDepartement();
 
         <div class="col-md-6 mb-2">
           <label class="form-label" for="ageMax">Age max :</label>
-          <input class="form-control" type="number" id="ageMax" name="ageMax" placeholder="Maximum age" min="0"/>
+          <input class="form-control" type="number" id="ageMax" name="ageMax" placeholder="Maximum age" min="0" />
         </div>
 
         <hr>
 
-        <div class="col-md-12 mb-2">
+        <div class="col-md-12 mb-2 row">
           <label class="form-label" for="departement">Department :</label>
-          <select class="form-control" name="departement" id="departement">
-            <option value="-1">All</option>
+          <div class="col-md-6">
+            <select class="form-control" name="departement" id="departement">
+              <option value="-1">All</option>
 
-            <?php
-            foreach ($list_departements as $departement) {
-            ?>
-              <option value="<?= $departement['dept_no'] ?>"><?= $departement['dept_name'] ?></option>
-            <?php
-            }
-            ?>
-          </select>
+              <?php
+              foreach ($list_departements as $departement) {
+              ?>
+                <option value="<?= $departement['dept_no'] ?>"><?= $departement['dept_name'] ?></option>
+              <?php
+              }
+              ?>
+            </select>
+          </div>
+          <div class="col-md-6 form-check">
+            <label for="current" class="form-check-label">Show Only Employee in a Department</label>
+            <input type="checkbox" name="currentOnly" id="current" class="form-check-input" />
+          </div>
         </div>
 
         <button type="submit" class="btn btn-primary">Search</button>

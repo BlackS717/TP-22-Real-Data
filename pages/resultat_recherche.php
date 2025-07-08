@@ -3,6 +3,8 @@ require("../inc/function.php");
 
 $values = [];
 
+$currentOnly = isset($_GET['currentOnly']) ? $_GET['currentOnly'] : false;
+
 $nom = isset($_GET["nom"]) ? $_GET['nom'] : "";
 $values[] = "nom=" . $nom;
 
@@ -21,9 +23,9 @@ $values[] = "departement=" . $idDepartementR;
 $start = isset($_GET["start"]) ? $_GET["start"] : 0;
 $nbrToShow = 20;
 
-$employees = rechercheEmployee($nom, $prenom, $ageMin, $ageMax, $idDepartementR, $start, $nbrToShow);
+$employees = rechercheEmployee($nom, $prenom, $ageMin, $ageMax, $idDepartementR, $start, $nbrToShow, $currentOnly);
 
-$nbrEmployees = getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $idDepartementR);
+$nbrEmployees = getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $idDepartementR, $currentOnly);
 
 $nbrEmployeesdivided = ceil($nbrEmployees / $nbrToShow);
 $next = $start + $nbrToShow;

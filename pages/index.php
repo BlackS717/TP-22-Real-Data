@@ -1,6 +1,10 @@
 <?php
 include("../inc/function.php");
-$departements = getAllDepartement();
+$result = getAllDepartementWithCurrentEmployeeCount();
+$departements = $result['departments'];
+$totalNbrIn = $result['total_employee'];
+$totalNbrOut = countAllEmployeeWithNoDepartment();
+$total = $totalNbrIn + $totalNbrOut;
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +27,8 @@ $departements = getAllDepartement();
         <section class="row">
             <section class="col-12 mx-auto mt-3 text-center">
                 <h2 class="text-danger fw-bold">Explore Our Departments</h2>
-                <p class="figure-caption">Total number of employee: <?= countAllEmployee() ?></p>
+                <p class="figure-caption">Total number of employee: w/ department: <?= $totalNbrIn ?>, w/o department <?= $totalNbrOut ?></p>
+                <p class="figure-caption">Total number of employee : <?= $total ?> </p>
             </section>
         </section>
 
@@ -37,7 +42,7 @@ $departements = getAllDepartement();
                             $idDepartement = $departement['dept_no'];
                             $idManagerEnCours = getManagerEnCours($idDepartement)["emp_no"];
                             $managerEnCours = getEmployee($idManagerEnCours);
-                            $nbrEmployee = getCountDepartmentEmployee($idDepartement)
+                            $nbrEmployee = $departement['nbr'];
                         ?>
 
                             <section class="card" style="width: 18rem;min-width: 18rem;">

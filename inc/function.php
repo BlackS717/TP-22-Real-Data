@@ -23,6 +23,13 @@ function fetch_result($request)
     return $result;
 }
 
+function count_result($request)
+{
+    $result = mysqli_num_rows($request);
+    mysqli_free_result($request);
+    return $result;
+}
+
 function getAllDepartement()
 {
     $sql = " SELECT * FROM departments ";
@@ -30,9 +37,24 @@ function getAllDepartement()
     return request_to_array($req);
 }
 
+function getAllDepartementWithCurrentEmployeeCount(){
+    $sql = "SELECT d.dept_no, d.dept_name, COUNT(de.emp_no) AS nbr FROM departments d 
+        JOIN dept_emp de ON d.dept_no = de.dept_no AND de.to_date = '9999-01-01'
+        GROUP BY d.dept_no, d.dept_name ORDER BY d.dept_name";
+    $request = make_request($sql);
+    $result['departments'] = request_to_array($request);
+    $result['total_employee'] = 0;
+
+    foreach ($result['departments'] as $dep){
+        $result['total_employee'] += $dep['nbr'];
+    }
+
+    return $result;
+}
+
 function getAllManagerEnCours($idDepartment)
 {
-    $sql = " SELECT * FROM dept_manager  WHERE dept_no = '%s' ";
+    $sql = " SELECT * FROM dept_manager  WHERE dept_no = '%s'  AND to_date = '9999-01-01'";
     $sql = sprintf($sql, $idDepartment);
     $req = make_request($sql);
     return request_to_array($req);
@@ -40,7 +62,7 @@ function getAllManagerEnCours($idDepartment)
 
 function getManagerEnCours($idDepartment)
 {
-    $sql = " SELECT * FROM dept_manager  WHERE dept_no = '%s' ORDER BY from_date DESC LIMIT 1";
+    $sql = " SELECT * FROM dept_manager  WHERE dept_no = '%s' AND to_date = '9999-01-01'";
     $sql = sprintf($sql, $idDepartment);
     $req = make_request($sql);
     $res = mysqli_fetch_assoc($req);
@@ -53,8 +75,7 @@ function getEmployee($idEmployee)
     $sql = "SELECT * FROM employees WHERE emp_no = '%s'";
     $sql = sprintf($sql, $idEmployee);
     $req = make_request($sql);
-    $res = mysqli_fetch_assoc($req);
-    mysqli_free_result($req);
+    $res = fetch_result($req);
     return $res;
 }
 
@@ -65,6 +86,30 @@ function getEmployeeTitleRecord($idEmployee)
     $sql = sprintf($sql, $idEmployee);
     $req = make_request($sql);
     return request_to_array($req);
+}
+
+function countAllEmployeeWithAssignedDepartment()
+{
+    $sql = "SELECT COUNT(DISTINCT emp_no) as total FROM dept_emp WHERE to_date = '9999-01-01'";
+    $req = mysqli_query(dbconnect(), $sql);
+    $res = mysqli_fetch_assoc($req);
+    mysqli_free_result($req);
+    return $res['total'];
+}
+
+function countAllEmployeeWithNoDepartment()
+{
+    $sql = "SELECT COUNT(*) AS total FROM employees e
+                WHERE NOT EXISTS (
+                    SELECT 1 FROM dept_emp de 
+                    WHERE de.emp_no = e.emp_no 
+                    AND de.to_date = '9999-01-01'
+                )
+            ";
+    $req = mysqli_query(dbconnect(), $sql);
+    $res = mysqli_fetch_assoc($req);
+    mysqli_free_result($req);
+    return $res['total'];
 }
 
 function countAllEmployee()
@@ -98,9 +143,19 @@ function getName($employee)
 
 function getDepartmentEmployee($idDepartment, $start, $nbr)
 {
-    $sql = "SELECT employees.* FROM employees 
-                JOIN dept_emp ON employees.emp_no = dept_emp.emp_no 
-                JOIN departments ON dept_emp.dept_no = departments.dept_no WHERE dept_emp.dept_no = '%s' ORDER BY employees.hire_date DESC LIMIT %s,%s";
+    $sql = "SELECT e.* FROM employees e 
+                JOIN dept_emp de ON e.emp_no = de.emp_no 
+                WHERE de.dept_no = '%s' AND de.to_date = '9999-01-01' ORDER BY e.last_name, e.first_name, e.hire_date  LIMIT %s,%s";
+    $sql = sprintf($sql, $idDepartment, $start, $nbr);
+    $req = make_request($sql);
+    return request_to_array($req);
+}
+
+function getDepartmentEmployeeRecord($idDepartment, $start, $nbr)
+{
+    $sql = "SELECT e.* FROM employees e 
+                JOIN dept_emp de ON e.emp_no = de.emp_no 
+                JOIN departments ON de.dept_no = departments.dept_no WHERE de.dept_no = '%s' ORDER BY e.hire_date DESC LIMIT %s,%s";
     $sql = sprintf($sql, $idDepartment, $start, $nbr);
     $req = make_request($sql);
     return request_to_array($req);
@@ -116,7 +171,17 @@ function getDepartment($idDepartment)
     return $res;
 }
 
-function getCountDepartmentEmployee($idDepartment)
+function countCurrentDepartmentEmployee($idDepartment)
+{
+    $sql = "SELECT count(*) as nbr FROM dept_emp WHERE dept_no = '%s' AND to_date = '9999-01-01'";
+    $sql = sprintf($sql, $idDepartment);
+    $req = make_request($sql);
+    $res = mysqli_fetch_assoc($req);
+    mysqli_free_result($req);
+    return $res["nbr"];
+}
+
+function countAllTimeDepartmentEmployee($idDepartment)
 {
     $sql = "SELECT count(*) as nbr FROM dept_emp WHERE dept_no = '%s'";
     $sql = sprintf($sql, $idDepartment);
@@ -160,27 +225,7 @@ function getEmployeeDepartmentRecord($idEmployee)
     return request_to_array($sql);
 }
 
-function getNombreSalaire($idEmployee)
-{
-    $sql = "SELECT count(*) as nbr FROM salaries WHERE emp_no='%s'";
-    $sql = sprintf($sql, $idEmployee);
-    $sql = make_request($sql);
-    $req = mysqli_fetch_assoc($sql);
-    mysqli_free_result($sql);
-    return $req["nbr"];
-}
-
-function getNombreEmployeDepartement($idEmployee)
-{
-    $sql = "SELECT count(*) as nbr FROM titles WHERE emp_no='%s'";
-    $sql = sprintf($sql, $idEmployee);
-    $sql = make_request($sql);
-    $req = mysqli_fetch_assoc($sql);
-    mysqli_free_result($sql);
-    return $req["nbr"];
-}
-
-function rechercheEmployee($nom, $prenom, $ageMin, $ageMax, $departement, $offset, $resultNbr)
+function rechercheEmployee($nom, $prenom, $ageMin, $ageMax, $departement, $offset, $resultNbr, $currentOnly)
 {
     $sql = "SELECT employees.* FROM employees ";
 
@@ -188,8 +233,16 @@ function rechercheEmployee($nom, $prenom, $ageMin, $ageMax, $departement, $offse
 
     $conditions = [];
 
-    if ($departement != "-1") {
+    if ($departement != '-1' || $currentOnly){
         $sql .= " JOIN dept_emp ON dept_emp.emp_no = employees.emp_no ";
+    }
+
+    if($currentOnly){
+        $condition = "dept_emp.to_date = '9999-01-01'";
+        $conditions[] = $condition;
+    }
+
+    if ($departement != "-1") {
 
         $condition = "dept_emp.dept_no = '%s'";
         $conditions[] = sprintf($condition, $departement);
@@ -222,9 +275,13 @@ function rechercheEmployee($nom, $prenom, $ageMin, $ageMax, $departement, $offse
         $sql .= implode(" AND ", $conditions);
     }
 
+    $order = " ORDER BY employees.last_name, employees.first_name ";
+    $sql .= $order;
+
     $LIMIT = " LIMIT %s, %s ";
     $LIMIT = sprintf($LIMIT, $offset, $resultNbr);
     $sql .= $LIMIT;
+
 
     // return $sql;
 
@@ -232,7 +289,7 @@ function rechercheEmployee($nom, $prenom, $ageMin, $ageMax, $departement, $offse
     return request_to_array($sql);
 }
 
-function getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $departement)
+function getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $departement, $currentOnly)
 {
     $sql = "SELECT COUNT(*) as total FROM employees ";
 
@@ -240,9 +297,16 @@ function getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $departement)
 
     $conditions = [];
 
-    if ($departement != "-1") {
+    if ($departement != '-1' || $currentOnly){
         $sql .= " JOIN dept_emp ON dept_emp.emp_no = employees.emp_no ";
+    }
 
+    if($currentOnly){
+        $condition = "dept_emp.to_date = '9999-01-01'";
+        $conditions[] = $condition;
+    }
+
+    if ($departement != "-1") {
         $condition = "dept_emp.dept_no = '%s'";
         $conditions[] = sprintf($condition, $departement);
     }
@@ -283,12 +347,40 @@ function getTotalMatchingValue($nom, $prenom, $ageMin, $ageMax, $departement)
     return fetch_result($request)['total'];
 }
 
+function getCurrentDepartment($idEmployee)
+{
+    $sql = "SELECT d.dept_name, d.dept_no FROM dept_emp de JOIN departments d ON de.dept_no = d.dept_no WHERE de.emp_no = '%s' AND de.to_date = '9999-01-01'";
+    $sql = sprintf($sql, $idEmployee);
+    $request = make_request($sql);
+    $result = fetch_result($request);
+    return $result;
+}
+
+function isInADepartment($idEmployee)
+{
+    $sql = "SELECT emp_no FROM dept_emp WHERE emp_no = '%s' AND to_date = '9999-01-01'";
+    $sql = sprintf($sql, $idEmployee);
+    $request = make_request($sql);
+    $result = count_result($request) > 0;
+    return $result;
+}
+
+function leaveDepartment($idEmployee, $date)
+{
+    $sql = "UPDATE dept_emp SET to_date = '%s' WHERE emp_no = '%s' AND to_date = '9999-01-01' AND from_date < '%s'";
+    $sql = sprintf($sql, $date, $idEmployee, $date);
+}
+
 
 function changeEmployeeDepartment($idEmployee, $idNewDep, $newDate)
 {
-    $ancienDep = getEmployeeDepartmentRecord($idEmployee)[0];
-    $sql = "update dept_emp set to_date = '%s' WHERE emp_no = '%s'";
-    $sql = sprintf($sql, $idEmployee, $newDate);
+    $inDepartment = isInADepartment($idEmployee);
+    return $inDepartment;
+    if ($inDepartment) {
+        if (leaveDepartment($idEmployee, $newDate)) {
+        }
+    } else {
+    }
 
     $sql1 = "insert into dept_emp values ('%s','%s','%s','9999-01-01')";
     $sql1 = sprintf($sql1, $idEmployee, $idNewDep, $newDate);

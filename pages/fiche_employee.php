@@ -7,11 +7,7 @@ $employee = getEmployee($idEmployee);
 
 $ficheDepartments = getEmployeeDepartmentRecord($idEmployee);
 $ficheSalaires = getEmployeeSalaryRecord($idEmployee);
-
 $fichePositions = getEmployeeTitleRecord($idEmployee);
-
-$numberSalary = getNombreSalaire($idEmployee);
-$nbrDepEmp = getNombreEmployeDepartement($idEmployee);
 
 ?>
 
@@ -86,8 +82,7 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
                                         <th>Salary</th>
                                     </tr>
 
-                                    <?php for ($i = 0; $i < $numberSalary; $i++) {
-                                        $ficheSalaire = $ficheSalaires[$i];
+                                    <?php foreach ($ficheSalaires as $ficheSalaire) {
 
                                         $terminated = $ficheSalaire["to_date"] != "9999-01-01";
 
@@ -118,8 +113,7 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
                                         <th>End</th>
                                         <th>Department</th>
                                     </tr>
-                                    <?php for ($i = 0; $i < $nbrDepEmp; $i++) {
-                                        $ficheDepartment = $ficheDepartments[$i];
+                                    <?php foreach ($ficheDepartments as $ficheDepartment) {
                                         $terminated = $ficheDepartment["to_date"] != "9999-01-01";
 
                                         $start_date = $ficheDepartment["from_date"];
@@ -147,15 +141,12 @@ $nbrDepEmp = getNombreEmployeDepartement($idEmployee);
                                         <th>End</th>
                                         <th>Position</th>
                                     </tr>
-                                    <?php for ($i = 0; $i < $nbrDepEmp; $i++) {
-                                        $fichePosition = $fichePositions[$i];
+                                    <?php foreach ($fichePositions as $fichePosition) {
                                         $terminated = $fichePosition["to_date"] != "9999-01-01";
 
                                         $start_date = $fichePosition['from_date'];
                                         $end_date = $terminated ? $fichePosition['to_date'] : "-";
                                         $position = $fichePosition['title'];
-
-
 
                                     ?>
                                         <tr>

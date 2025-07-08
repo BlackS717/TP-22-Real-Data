@@ -3,13 +3,13 @@ require("../inc/function.php");
 $idDepartement = isset($_GET["id"]) ? $_GET["id"] : 0;
 
 $start = isset($_GET["start"]) ? $_GET["start"] : 0;
-
 $nbrToShow = 20;
+
+$nbrEmployees = countCurrentDepartmentEmployee($idDepartement);
+
 $employees = getDepartmentEmployee($idDepartement, $start, $nbrToShow);
 $employeeCount = count($employees);
 
-
-$nbrEmployees = getCountDepartmentEmployee($idDepartement);
 $nbrEmployeesdivided = ceil($nbrEmployees / $nbrToShow);
 $next = $start + $employeeCount;
 $previous = $start - $nbrToShow;
@@ -46,7 +46,7 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
                     </li>
 
                     <li class="page-item disabled">
-                        <a href="" class="page-link"><?= $start + 1 ?> - <?= $start + $employeeCount ?></a>
+                        <a href="" class="page-link"><?= $start + 1 ?> - <?= $start + $employeeCount ?> / <?= $nbrEmployees ?></a>
                     </li>
 
                     <li class="page-item <?= $activeNext ?>">
@@ -100,7 +100,7 @@ $activeNext = $next == $nbrEmployees ? "disabled" : "";
                     </li>
 
                     <li class="page-item disabled">
-                        <a href="" class="page-link"><?= $start + 1 ?> - <?= $start + $employeeCount ?></a>
+                        <a href="" class="page-link"><?= $start + 1 ?> - <?= $start + $employeeCount ?> / <?= $nbrEmployees ?></a>
                     </li>
 
                     <li class="page-item <?= $activeNext ?>">
